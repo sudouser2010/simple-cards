@@ -1,0 +1,391 @@
+Phase1
+
+
+-----------------------------8/6/2014
+(0) make code scroll to top when sort buttons are clicked
+(1) make end button work on home and choose list screen
+(2) make code pop up: "are you sure you want to exit"
+(3) when user holds button down on choose list for more than 5 seconds, he/she can edit it
+(4) when user holds card down, they can edit it
+
+
+----------------------------------------------7/23/2014
+(1) make buttons on top user can click to sort by grade or by name
+(2) add sort by grade functionality
+    -make default grade 0 instead of ""
+(3) When lists are sorted by grade, the grade is visible
+(4) make clicking sound work ++
+    >> trick was to make element of interest a button and style the button with the following:
+    button {
+        width:100%; 
+        background:none;
+        border:none;
+        outline: 0;
+    }
+
+    *note to hide the highlight on mouse down, I would add separately another style:
+    .no-hilight {
+    -webkit-tap-highlight-color:transparent;
+    }
+
+(5) think about set up, when user clicks home screen, where does it go ?++
+    -maybe there should be one button which goes back to the choose list
+    and another goes back to the main screen, but then it would be cluttered
+    >>there will be a button. The home button goes back to study or create cards.
+    The list button goes back to choose list
+(6) put numbers on card: 4/10
+(7) fix css issue with grid++
+    >>this took a lot of time. The issue was caused by 3 reasons:
+    (1) my grid system for both the footer and the header did not add up to 12
+    (2) when the text expands, the grid that it is in expands also. The trick is to make text smaller
+    when screen is in different mode
+    (3) for the space which was present, I placed a place holding icon that was disabled. This ensured it would look symmetrical
+(8) fix issue with ellipsis not working++
+    >> I fixed it by separating the text from the button.
+    the button manages the click and the div manages the text.
+    the button is placed onto of the div
+
+(9) sort by summary only. Therefore, app doesn't need to read the entire list just to make choose list screen++
+    -this is more efficient b/c app reads and write to only one list at a time
+    - still need to access index from click handler function
+        data-bind="click: function(data, event) { myClickHandler($index, data, event); }"
+
+(10) make function that runs after view model is done++
+    function doThisStuffAfterViewIsLoaded() {
+
+        var footerDistanceFromTop = $("#body-footer").offset().top;
+        alert(footerDistanceFromTop);
+    }
+
+    function checkIfViewModelIsLoaded() {
+        if(typeof vm !== 'undefined') {
+            clearInterval(refreshIntervalId);
+            doThisStuffAfterViewIsLoaded();
+        }
+    }
+
+    var refreshIntervalId = setInterval(checkIfViewModelIsLoaded, 100);
+
+(11) make code respond to orientation changes++
+    //above 400 ms is best for orientation event
+    //resize doesn't need a timer to work properly
+
+    note the orientation event is unreliable,use resize
+    $( window ).on( "resize", function( event ) {
+        
+        // updates body when ever user rotates device
+        setBodyHeight();
+        vm.updateCardUi();
+
+    });
+
+    -note there is a slight delay in the arrowsmoving to their correct position after resizing
+    but its not that bad. I'll deal with this later. I might try to speed that code up by:
+    not doing a function call, using regular javascript instead of jquery
+
+
+(12) add sort state++
+nameForward, nameReversed, gradeForward, gradeReversed
+if user hits byName once, the list is sorted by name
+if user hits byName right after, the list is reversed by name
+
+if user hits byGrade once, the list is sorted by grade
+if user hits byGrade right after, the list is reversed by grade
+
+this creates a toggle like effect which makes it easier to navigate. For instance, when list is large,
+user can simply hit byName button twice to view lists with names at the end of the alphabet
+------------------------------------6/20/2014
+(1) sort allCardLists data by the name of the card list++
+    (a)get allcardlists from local storage 
+        -must do it this way bc local storage is only the data encoded as a string
+    (b) if allcardlists is not in alphabetic order:
+        (b1) sort allcardlists by name of cardlist
+            -if names are equal, then sort by time list was created (guaranteed unique)
+        (b2) set localStorage to allcardlists
+    *this would happen whenever app starts or a new list is created in app
+
+    *other variations of method above is to:
+        -sort by id number which corresponds to date created
+        -not to sort
+        -place a flag which says the data is sorted or not. So the code doesn't need to
+        loop through and check if array is already sorted. For instance, with the status quo method above
+        it would be a waste of time if the last entry in a really long array wasn't sorted because the code would have
+        to do all the checking and then sort anyway. Checking if the array is sorted is calculation intensive. 
+        It is easier to check a flag to see if the array is sorted
+
+        -maybe I can sort by grade and place the worst grades at the top
+        
+
+(2) make the margin-top of the front page vary depending on the length of the text --
+    -maybe make like 2 different modes
+    >> I will not make it because there are different screens which exist.
+    perhaps I could make a JavaScript solution but its not absolutely needed now
+(3) make lists work so they start with an index of zero++
+(4)save whenever user goes back to home screen ++
+    -do this only if they clicked a checker button
+(5) test app on phone ++
+    >> it works. everything is good except:
+        -clicking on the choose list menu did not produce any clicking sound
+        -exit button did not work, but that's because I didn't build it as a Cordova app
+(6) look up sorting in javascript ++
+    >> as I thought local storage has no sort method
+    but JavaScript has some great built in sorting for arrays with dictionary enteries. Example below:
+        https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+        http://stackoverflow.com/questions/979256/sorting-an-array-of-javascript-objects
+            var items = [
+              { name: "Edward", value: 21 },
+              { name: "Sharpe", value: 37 },
+              { name: "And", value: 45 },
+              { name: "The", value: -12 },
+              { name: "Magnetic" },
+              { name: "Zeros", value: 37 }
+            ];
+            items.sort(function (a, b) {
+                if (a.name > b.name)
+                  return 1;
+                if (a.name < b.name)
+                  return -1;
+                // a must be equal to b
+                return 0;
+            });
+
+        -note this is very similar to what I want to do.
+        note in my situation, if the names or equal, then I would compare the time each element was created 
+        (b/c that's unique with regards to the cardlists)
+
+        >>I ended up using a flag and not checking when two elements were equal, I don't think that is needed
+
+(7) look up types of client storage in browser and mobile applications ++
+    see: http://www.html5rocks.com/en/tutorials/offline/storage/ for more:
+
+        http://www.w3.org/TR/IndexedDB/
+            -- is supported by all major browsers
+            -- is supported by only windows phone8 and blackberry :(
+            --this is pretty good but it has partial support by webkit (that's why its not on Android or IOS)
+                -it has indexing with really useful database-like functionality
+
+        http://www.w3.org/TR/webstorage/
+            --this is the local storage paradigm. I currently use it
+            --is supported by all major browers
+            -- is supported by all major devices
+
+        http://dev.w3.org/html5/webdatabase/
+            --is obsolete for a major browsers
+            --is supported by all major phones
+
+        **I have no option but to use localStorage if I want to reach both browser and mobile
+        with the same code !
+    
+
+------------------------------------------6/19/2014
+(1) loop through list and create buttons user can click on ++
+(2) make list of buttons scrollable ++
+(3) make an isOdd function so I can have alternating colors on button ++
+(4) sort allCardLists data by the name of the card list --
+(5) try to get intelxdk emulator to work with foreach data binding ++
+    >> I don't think it's working on the XDK because:
+    - the view is rendering too quickly, before the array can be built
+        >> by observing various browsers, I believe this could be why.
+        Chrome showed 2 items, the XDK showed 1 and Firefox showed three items (as it should)
+        - I need to delay the rendering of the view until some process has occurred or time has passed
+        >>the reason why because the data was not being refreshed. The problem has been fixed
+    - perhaps it doesn't work well with deep array
+(6) move text box for the choose list down a little ++
+(7) Solve the issue of making text with various sizes in a box with various sizes++
+    >> My solution:
+        <div 
+        class="first-word j-icon button-show-as-clicked dark" 
+        style="padding-left:20%; padding-right:10%"
+        data-bind="css:{ light: !vm.isOdd($data.id)}" >
+            <div 
+            data-bind="text: $data.list.meta_data.name"  
+            style="font-size:55px; text-align:center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+            </div>
+        </div>
+(8) get explanation of how data, root etc work:++
+    $data – this is the current data bound at this scope.
+    $root – this is the top-level view model.
+    $parent – this is the data bound one scope level up from the current data.
+    $parents – this is an array of parent view models up to the top-level view model. $parents[0] will be the same as $parent.
+    $parentContext – this provides the context (object containing these special variables) of the parent scope.
+    $index – in the foreach binding, this is an observable representing the current array item’s index.
+    *from http://www.appliness.com/10-things-to-know-about-knockout-js-on-day-one/
+(9) make flashcardarray into an observable ++
+(10) get rid of flashCards variable, I'm not using it ++
+(11) make save list save the list worked on++
+(12) make sorting work so it can be toggled and actually show the grade ++
+    >>An interesting design choice I did is to make an obervable array (self.summay) with object data.
+when a property of one of the objects changed, I emptied the observable array and redefined it.
+This should take up less memory than actually filling the observable array with observables objets and making knockout
+show when the observable has changed.
+for more info see: http://www.knockmeout.net/2012/04/knockoutjs-performance-gotcha.html
+>>plus, this approach is easier to code
+
+------------------------------------------6/18/2014
+(1) start making choose list screen ++
+(2) place home button which always goes to choose list screen++
+(3) make extra dummy data ++
+(4) make hide checkers++
+(5) make hide arrows ++  
+(6) loop through list and create buttons user can click on --
+(7) make list of buttons scrollable  --
+------------------------------------------6/9/2014
+(1) make program so it remembers the grade++
+------------------------------------------6/7/2014
+(1) make it so when user clicks back or forward, the front side of the card shows ++
+        -when I was on the backside of the card and I hit next, I wanted to see the front but I saw the back
+        of the next card.
+(2) make it so when user clicks end in a browser, it closes the current window --
+    >> the solutions were hacky. So ended up not implementing it
+
+(3) place summary screen so user can see percentage of words correct++
+    -I'm going to have to decouple isFrontSide to make this work
+
+-----------------------------------------2/7/2014
+(1) add more computer study cards to data bank ++
+(2) make end button shut down app ++
+    >> end button works now ++
+    >> I used a config.xml file (typically used for phonegap) but it didn't work at all.
+    It looks like the code was expecting a intelxdk.config.xml instead.
+    By the way, I know it didn't work b/c I restricted the app so it would only work in landscape, but that didn't work.
+    It didn'twork whenthe config.xml was in the root of the project (same level as the www) or if it was inside the www folder.
+    Also, when I tried placing all the stuff in the www folder at the root, the emulator couldn't pickup the project.
+    According to my research, it looks like when using the Intel.XDK stuff, that I have to use intelxdk.config.xml instead of config.xml.
+    I just confirmed it by looking at the example online: https://github.com/gomobile/sample-phonegap-audio
+
+    Not, there are some small differences between the format of a config.xml and intelxdk.config.xml.
+
+(3) if list1 doesn't have correct defined, it is assumed by the code as 0 ++
+(4) think about adjusting color scheme ++
+    >> I thought about it, I'll do it later. I don't care about the colors, I only want it to work
+----------------------------------------2/7/2014
+
+--------------------------------------------------1/7/2014
+(1) make persistent data with local storage ++
+    >> persistent storage works with browser, phone but not emulator strangely
+
+(2) add more computer study cards to data bank--
+--------------------------------------------------1/7/2014
+
+
+--------------------------------------30/06/2014
+(0) make blue area larger, maybe as large as the body ++
+    >> I made it a little bit larger
+
+(1) make blue background transparent partially or fully ++
+    >> this works pretty well:background-color:rgba(255,0,0,0.2);
+    >>but I've decided it looks better without any color
+    
+(2) look up info on local storage and text to speech ++
+    speech to text
+        https://github.com/mayurloved/speechrecognizer
+        https://github.com/poiuytrez/SpeechRecognizer
+
+    text to speech
+        https://gist.github.com/macdonst/962784
+        http://www.sitepoint.com/talking-web-pages-and-the-speech-synthesis-api/
+        https://github.com/kripken/speak.js
+            >> works in the emulator andin firefox but not on the phone :(
+        >> no solutions work completely on phone yet. So I don't think I will implement it
+
+--------------------------------------30/06/2014
+
+--------------------------------------------------25/06/2014
+(0) make front card side bigger and back card side smaller ++
+
+(1) need to make click sound be heard when user clicks button ++
+    >> I successfully got the sound to work !.
+    the problem was intelxdk's appframework.ui.min.js code.
+    It disabled clicking. To make matters worse, only the minified js code worked.
+    And the minified code is very difficult to modify. If the un-minified version worked properly,
+    then I might try to do so. But it didn't
+
+    Therefore, I have to decided to remove the appframework
+    as a dependency. 
+
+(2) need to make it so true-false selection data is persistent for each card ++
+    -remove the j-icon select class from button,this makes it simpler
+
+(3) place flash card background++
+    -use a pattern
+    -use one image
+    -use 2 patterns
+    -maybe don't use a background
+--------------------------------------------------25/06/2014
+
+
+
+--------------------------------22/06/2014
+(0) make front card side bigger and back card side smaller --
+(1) need to make click sound be heard when user clicks button +-
+    - (1) can play sound with phonegap
+    - (2) can use anchor element
+    - (3) can use javascript
+    - (4) can use javascript to click on a hidden button
+    - (5)look at something which does work and reverse engineer it
+
+        links by themselves don't do anything
+            -link by itself didn't work
+        its not the css
+            -I removed it for the anchor and it still did not work
+        its not the styling for the classes
+            - I removed the styling for the classes and it still did not work
+            ie:  no-hilight glyphicon glyphicon-play
+        its not onclick event handler
+            that made no difference
+
+maybe its the building process, maybe it just work differently: nope, I rebuilt the old project and it works the same
+ it is app frameworks css
+
+
+(2) need to make it so true-false selection data is persistent for each card --
+    -remove the j-icon select class from button,this makes it simpler
+
+(3) place flash card background --
+    -use a pattern
+--------------------------------22/06/2014
+
+--------------------------------------------------15/06/2014
+(1) test new ui. Goal is to take the best from each framework:
+    -use intel's appframework as a base ++
+        -because this is a mobile app, it makes sense to base it on a mobile framework first
+        -intel's appframework is simple to use
+    -use bootstraps grid system ++
+        - go to bootstrap customize, http://getbootstrap.com/customize/, deselect everything with the toggle all, then select grid system
+        - If the the bootstap file is loaded after appframework, the common elements (not that many) will follow bootstrap instructions
+        -bootstrap has the best grid system I have seen
+    -use icons from the ionic framework ++
+        -http://ionicons.com/ , they have the best icons I have seen
+        >>used font awesome instead because iconicons did not work :(
+
+(2) the branch I will create for the ui system proposed in (1) is called ui-2
+--------------------------------------------------15/06/2014
+
+-----------------------------------13/06/2014
+(1) refactor css
+-----------------------------------13/06/2014
+
+------------------------------09/06/2014
+(1) refactored code ++
+(2) tried to remove extraneous columns with offsets ++
+    >>found out that offsets and code which maximizes column height are not compatible.
+    >>I chose to stick with the extraneous columns and use column maximizing script
+
+------------------------------09/06/2014
+-----------------------------------09/06/2014
+(1) fixed footer issue++
+    >>disadvantage: there is some extra space below. However it is not visible bc scrolling is disabled
+        -the disadvantage of disabling scrolling is that the user can not draw images. On second thought,
+        the user should still be able to draw images if the touch event is allowed on the sketch pad.
+
+-----------------------------------09/06/2014
+(1) start app with Intel XDK ++
+	-use Bootstrap3 with Slate theme
+
+(2) use Git version control ++
+
+(3) make JSON test data ++
+
+(4) design front card UI
+
+(5) design back card UI

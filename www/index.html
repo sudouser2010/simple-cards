@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+
+	<head>
+		<title>Simple Cards</title>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+
+		<meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.css" />
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="css/custom-styles.css" />
+
+		<script src="intelxdk.js"></script>
+		<script>
+			/* Intel native bridge is available */
+			var onDeviceReady=function(){
+			//hide splash screen
+			intel.xdk.device.hideSplashScreen();
+			};
+			document.addEventListener("intel.xdk.device.ready",onDeviceReady,false);
+		</script>
+		<script src="cordova.js"></script>
+		<script src="js/knockout.js"></script>	
+		<script src="iscroll/iscroll-lite.js"></script>
+	</head>
+
+    <script type="text/javascript">
+
+    var myScroll;
+
+    function loaded () {
+	    myScroll = new IScroll('.scroll-wrapper');
+    }
+    </script>
+
+    <body onload="loaded()" style="position:absolute"
+    data-bind="css:{ flashcard_background: vm.currentView() ==='front' }"
+    >
+
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~Page-Container start -->
+        <div id="page-container" style="position: relative; height:100%; width:100%">
+
+
+            <!-- Body-Header start -->
+            <div 
+            id="body-header" data-bind="css:{ isHidden: vm.currentView() ==='home' }"
+            style="position:absolute; top:0%; width:100%; background-color: red; z-index:21;">
+ 
+                <div class="container-fluid container-xs-height">
+                    <div class="row row-xs-height">
+
+
+                        <a href="#" class="col-xs-1 col-xs-height col-middle j-icon"
+                        data-bind="click: vm.homeScreen, css:{ isHidden: vm.currentView() =='home'}">                
+                            <span class="fa fa-home icon-show-as-clicked-blur no-hilight adjust-menu-padding" style="font-size:50px">
+                            </span>
+                        </a>
+                        <a href="#" class="col-xs-1 col-xs-height col-middle j-icon adjust-menu-padding" style="padding-right:1px"
+                        data-bind="click: vm.chooseList, css:{ isHidden: vm.currentView() =='home'}">                
+                            <span class="fa fa-file-text icon-show-as-clicked-blur no-hilight" style="font-size:40px"></span>
+                        </a>
+
+
+
+                        <div class="col-xs-8 col-xs-height col-middle j-icon" style= "">
+                            <div class="" style="font-size:40px"
+                            data-bind="css:{ isHidden: vm.currentView() !=='front' }">Front</div>
+                            <div class="" style="font-size:40px"
+                            data-bind="css:{ isHidden: vm.currentView() !=='back' }">Back</div>
+                            <div class="" style="font-size:40px"
+                            data-bind="css:{ isHidden: vm.currentView() !=='result' }">Results</div>
+                            <div id="select_list"
+                            data-bind="css:{ isHidden: vm.currentView() !=='choose' }">Select List</div>
+                        </div>
+
+
+                        <div class="col-xs-1 col-xs-height col-middle j-icon">
+                            <span class="fa fa-refresh adjust-menu-padding isDisabled" style="font-size:50px;"></span>
+                        </div>
+                        
+                        <a href="#" class="col-xs-1 col-xs-height col-middle j-icon"
+                        data-bind="css:{ isDisabled: vm.hideCheckers() }, click: vm.toggleSide">                
+                            <span class="fa fa-refresh icon-show-as-clicked-blur no-hilight adjust-menu-padding" style="font-size:50px">
+                            </span>
+                        </a>
+                        
+
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- Body-Header end -->
+
+
+
+         
+            <!-- Body-Content start -->
+            <div id="body-content" style="position:absolute; margin-top:55px; width:100%;">
+
+                <a class='arrow' style="position:absolute; top:35%; left:0px" href="#" >                  
+                    <span class="no-hilight glyphicon glyphicon-play 
+                    mirror-icon icon-show-as-clicked-blur" style="font-size:60px" 
+                    data-bind="click:vm.decreaseId, css:{ isHidden: !vm.displayPreviousButton() || vm.hideArrows() }"
+                    ></span>
+                </a>
+
+                <a class='arrow' style="position:absolute;top:35%; right:0px" href="#" >                  
+                    <span class="no-hilight glyphicon glyphicon-play
+                    icon-show-as-clicked-blur" style="font-size:60px" 
+                    data-bind="click:vm.increaseId, css:{ isHidden: vm.currentView() === 'result' || vm.hideArrows() }"
+                     ></span>
+                </a>
+
+                <div class="container body-container">
+                    <div class="row"> 
+                                    
+                        <!-- For Home Screen -->
+                        <div 
+                        data-bind="css:{ isHidden: vm.currentView() !=='home' }"
+                        class="col-xs-10 col-xs-offset-1" style="height:100%">
+
+                            <button class="col-xs-12 homeScreenButtons light" style="margin-top:5%;"
+                            data-bind="click:"
+                            >
+                                Create Cards
+                            </button>
+                            <button class="col-xs-12 homeScreenButtons light" style="margin-top:8%;"
+                            data-bind="click:vm.chooseList"
+                            >
+                                Study Cards
+                            </button>
+
+                        </div>
+                        <!-- For Home Screen -->
+                                	                      
+	                    <div class="col-xs-10 col-xs-offset-1" 
+                        data-bind="css:{ isHidden: vm.currentView() ==='home' }" 
+                        style="height:100%">
+ 
+                            <!-- For Choose List -->
+                            <div data-bind="css:{ isHidden: vm.currentView() !=='choose' }"
+                            class="col-xs-12 sorting_buttons_family" 
+                            style="">
+                                <button 
+                                class="col-xs-5 sorting_buttons_individual"
+                                data-bind="click:vm.sortSummaryByNames"
+                                >
+                                    By Name
+                                </button>
+                                <button 
+                                class="col-xs-5 col-xs-offset-2 sorting_buttons_individual"
+                                data-bind="click:vm.sortSummaryByGrades"
+                                >
+                                    By Grade
+                                </button>
+                            </div>
+                            <!-- For Choose List -->
+
+
+                            <!-- For scrollable content in body -->
+                            <div class="scroll-wrapper">
+	                            <div class="scroller">
+                
+                                    <!-- For studying flashcards -->
+                                    <div class="first-word" style="text-align:center; font-size:45px; margin-top:15%"
+                                    data-bind="css:{ isHidden: vm.currentView() !=='front' }, text:vm.frontText()" >Concept</div>
+
+                                    <div style="text-align:center; font-size:25px; margin-top:10%" 
+                                    data-bind="css:{ isHidden: vm.currentView() !=='back' }, foreach: vm.backText()" >
+                                        <div class="first-word" data-bind="text:'&#149; '+$data"></div>
+                                    </div>
+	                                <!-- For studying flashcards -->
+
+                                    <!-- For results -->
+                                    <span  data-bind="css:{ isHidden: vm.currentView() !=='result' }">
+                                        <div style="text-align:center; font-size:45px">Percent Correct:</div>
+                                        <div data-bind="text: vm.percentageCorrect() +'%'" style="text-align:center; font-size:55px; ">
+                                        </div>
+                                    </span>
+                                    <!-- For results -->
+
+                                    <!-- For Choose List -->
+                                    <span  data-bind="foreach: vm.summary(), css:{ isHidden: vm.currentView() !=='choose' }">
+
+                                        <div 
+                                        style="position:relative"
+                                        class="first-word button-show-as-clicked dark outer-choose-button" 
+                                        data-bind="css:{ light: !vm.isOdd($index())}" >
+                                            <div 
+                                            class= "inner-choose-button"
+                                            data-bind="text: $data.name, css:{leftShift: vm.showListGrade()}"
+                                            >
+                                            </div>
+                                            <div 
+                                            class="chooseListGrade" 
+                                            data-bind="css:{ isHidden: !vm.showListGrade() }, text: $data.grade + '%'"
+                                            >
+                                                80%
+                                            </div>
+
+                                            <button
+                                            style="position:absolute; height:100%; top:0px; left:0px"
+                                            data-bind="click: function(data, event) { vm.goToSpecificCardList(data, $index(), event); }"  
+                                            >
+                                            </button>
+                                        </div>
+
+                                    </span>
+                                    <!-- For Choose List -->
+
+	                            </div>
+                            </div>
+                            <!-- For scrollable content in body -->
+
+	                    </div> 
+
+                    </div> 
+                </div>
+
+
+            </div>
+	        <!-- Body-Content end -->
+            
+
+
+
+		    <!-- Footer start -->
+	        <div id="body-footer" style="position:absolute; bottom:0%; width:100%; background-color: yellow">
+
+                <div class="container container-xs-height">
+                    <div class="row row-xs-height">
+
+                        <!-- ko with: vm.flashCardArray()[vm.flashCardId()] -->
+                            <a href="#" class="col-xs-4 col-xs-height col-middle j-icon button-show-as-clicked"
+                            data-bind="css:{ wrongCorrect: $data.isCorrect()===1, isDisabled: vm.hideCheckers() }, 
+                            click: vm.correctButtonPushed">     
+	                            <span  class="glyphicon glyphicon-ok button-icon-center" 
+                                style="font-size:45px; color:green"></span>
+                            </a>
+
+                             <a href="#" class="col-xs-4 col-xs-height col-middle j-icon button-show-as-clicked" 
+                            data-bind="css:{ wrongCorrect: $data.isCorrect()===-1, isDisabled: vm.hideCheckers() },
+                            click: vm.incorrectButtonPushed">     
+                                <span  class="glyphicon glyphicon-remove"
+                                style="font-size:45px; color:red"
+                                ></span>                        
+                            </a>  
+                        <!-- /ko -->
+
+
+                        <a href="#" class="col-xs-4 col-xs-height col-middle j-icon button-show-as-clicked"
+                        data-bind="click: vm.exitApp" >                
+                            <span  class="" style="font-size:45px">End</span>
+                        </a>
+
+                    </div>
+                </div>
+
+	        </div>
+		    <!-- Footer end -->
+
+        </div>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~Page-Container end -->
+
+		<script src="js/jquery.min.js"></script>
+		<script src="js/custom-js.js"></script>
+        <script src="data.js"></script>
+
+
+        <script>
+		    function flashCard(uniqueId, front, back, correct) {
+			    var self = this;
+
+                self.id = uniqueId;       //int
+			    self.front = front;       //string
+                self.back = back;         //array of strings
+
+                //gets correctness from uniqueId
+                self.isCorrect = ko.observable(correct);		
+            }
+
+		    function flashCardList(uniqueId, list) {
+			    var self = this;
+
+                self.id = uniqueId;         //int
+			    self.list = list;           //a list from local Storage	
+            }
+
+		    function app() {
+			    var self = this;
+
+                //-------------get meta_data for all the lists
+                self.metaDataForAllLists    = localStorage.getObject("meta_data");
+                self.summarySortState       = self.metaDataForAllLists.sortState;
+                /*
+                    the summarySortState can be none, nameForward, nameReversed, 
+                    gradeForward, gradeReversed
+                */
+
+                //--------------------load summary
+                self.summary = ko.observableArray( self.metaDataForAllLists["summary"]);
+
+
+                //---------------------------------------------initializes app
+                self.flashCardId    = ko.observable(0);
+                self.flashCardArray = ko.observableArray([new flashCard(0,'','')]); //makes a dummy card
+                self.numberOfCards  = 0;
+                self.percentageCorrect = ko.observable('nada');
+                self.currentView    = ko.observable('home');
+                self.hideCheckers   = ko.observable(true);
+                self.hideArrows     = ko.observable(true);
+                self.frontText = ko.observable();
+                self.backText = ko.observable();
+                self.displayNextButton = ko.observable(false);
+                self.displayPreviousButton = ko.observable(false);
+                self.checkerClicked = false;        //when the user click on a checker
+                self.showListGrade  = ko.observable(false);
+                //---------------------------------------------initializes app
+
+
+                self.compareSummaryNames = function(a,b) {
+                    if (a.name > b.name) {
+                        return 1;
+                    }
+                    if (a.name < b.name) {
+                      return -1;
+                    // a must be equal to b
+                    }
+                    return 0;
+                }
+
+                self.compareSummaryGrades = function(a,b) {
+                    a.grade = parseFloat(a.grade);
+                    b.grade = parseFloat(b.grade);
+                    if (a.grade > b.grade) {
+                        return 1;
+                    }
+                    if (a.grade < b.grade) {
+                      return -1;
+                    // a must be equal to b
+                    }
+                    return 0;
+                }
+
+
+                self.sortSummaryByNames = function() {
+                    //note I don't sort the observable directly, that would be resource intensive
+                    var localArray = self.summary();
+                    
+                    if (self.summarySortState == "nameForward") {
+                        //if sorted by name, then reverse the list
+                        localArray.reverse();
+                        self.summarySortState = "nameReversed";
+                    } else {
+                        //otherwise sort by name
+                        localArray.sort(self.compareSummaryNames);
+                        self.summarySortState = "nameForward";
+                    }
+                    self.showListGrade(false);
+                    self.summary(localArray);
+                }
+
+                self.sortSummaryByGrades = function() {
+                    //note I don't sort the observable directly, that would be resource intensive
+                    var localArray = self.summary();
+                    
+                    if (self.summarySortState == "gradeReversed") {
+                        self.showListGrade(false);
+                        self.summarySortState = "none";
+                        return;
+                    }
+
+                    if (self.summarySortState == "gradeForward") {
+                        //if sorted by name, then reverse the list
+                        localArray.reverse();
+                        self.summarySortState = "gradeReversed";
+                    } else {
+                        //otherwise sort by name
+                        localArray.sort(self.compareSummaryGrades);
+                        self.summarySortState = "gradeForward";
+                    }
+                    self.showListGrade(true);
+                    self.summary(localArray);
+                }
+
+                //----------------------------------------sorts the summary
+                    self.sortSummaryByNames();                
+                //----------------------------------------sorts the summary
+
+                self.checkIfShouldShowNextButton = function() {
+                    if(self.flashCardId() < self.numberOfCards) {
+                        self.displayNextButton(true);
+                    } else {
+                        self.displayNextButton(false);
+                    }
+                }
+
+                self.checkIfShouldShowPreviousButton = function() {
+                    if((self.flashCardId() > 0) || (self.numberOfCards===1 && self.currentView() === "result") ) {
+                        self.displayPreviousButton(true);
+                    } else {
+                        self.displayPreviousButton(false);
+                    }   
+                }
+
+                self.initializeStudyMode = function(id, indexOfCardListInSummary) {
+
+
+                    //get data for list1 from local storage
+                    var local_data = localStorage.getObject("list"+id);
+                    self.summaryIndex = indexOfCardListInSummary;
+                    self.listId         = id;
+                    self.flashCardId(0);
+                    self.list_data      = local_data.list_data;
+                    self.meta_data      = local_data.meta_data;
+                    self.flashCardArray([]);
+                    self.numberOfCards  = self.list_data.length;
+
+
+
+                    // -------------------generateflashCardArrayFromData
+                        var correct;
+                        for(var i=0; i<self.numberOfCards; i++) {
+
+                            correct = 0;                        
+                            if( typeof self.list_data[i].correct !== "undefined" ) {
+                                correct = self.list_data[i].correct;
+                            }
+
+                            self.flashCardArray.push( new flashCard(i, self.list_data[i].front, 
+                            self.list_data[i].back, correct) );
+                        }
+                    // -------------------generateflashCardArrayFromData
+
+                    // --------------- initialize current flash on card 
+                    self.frontText( self.flashCardArray()[self.flashCardId()].front );
+                    self.backText( self.flashCardArray()[self.flashCardId()].back );
+
+                    self.currentView('front');
+
+                    self.hideCheckers(false);
+                    self.hideArrows(false);
+
+                    self.checkIfShouldShowPreviousButton();
+                    self.checkIfShouldShowNextButton();
+                    self.saveListChanges();
+                    self.checkerClicked = false;
+
+                }
+
+		        self.toggleSide = function() {
+        
+                    if( self.currentView() === 'front') {
+                        self.currentView('back');
+                    } else if( self.currentView() === 'back') {
+                        self.currentView('front');
+                    }
+                    myScroll.refresh();                     //calculates new height for scrolling elements when switching sides
+		        }	
+
+                self.updateCardUi = function() {
+                    myScroll.refresh();                     //calculates new height for scrolling elements
+                    myScroll.scrollTo(0, 0, 0, false);      //scrolls to top of scrolling element
+                }
+
+                self.updateCardFrontBackText = function() {
+                    self.frontText( self.flashCardArray()[self.flashCardId()].front );
+                    self.backText( self.flashCardArray()[self.flashCardId()].back );
+                }
+
+		        self.increaseId = function() {
+                    self.checkIfShouldShowNextButton();
+
+                    if(self.displayNextButton()) {
+                        if (self.flashCardId() === self.numberOfCards -1) {
+                            self.currentView('result');
+                            self.hideCheckers(true);
+                            self.calculatePercentage();
+                        } else {
+				            self.flashCardId( self.flashCardId() + 1 );
+                            self.currentView('front');
+                        }
+
+                        self.updateCardFrontBackText();
+                        self.checkIfShouldShowPreviousButton();
+                        self.checkIfShouldShowNextButton();
+                        self.updateCardUi();
+
+                    }
+		        }	
+
+		        self.decreaseId = function() {
+                    self.checkIfShouldShowPreviousButton();
+
+                    if(self.displayPreviousButton()) {
+
+                        if (self.currentView() !== 'result') {
+                            self.flashCardId( self.flashCardId() - 1 );                      
+                        } else if( self.flashCardId() === self.numberOfCards -1) {
+                            self.hideCheckers(false); 
+                            self.hideArrows(false); 
+                        }
+                        self.currentView('front');
+
+                        self.updateCardFrontBackText();
+                        self.checkIfShouldShowPreviousButton();
+                        self.checkIfShouldShowNextButton();
+                        self.updateCardUi();
+
+                    }
+		        }
+
+                /* 
+                    the is correct property has 3 states, 
+                    0  = no buttons selected
+                    1  = correct button selected (check mark)
+                    -1 = incorrect button selected (x-mark)
+                */
+                self.correctButtonPushed = function(flashCardElement) {
+                    if(flashCardElement.isCorrect()===1) {
+                        //check mark was already selected, so deselect it
+                        flashCardElement.isCorrect(0);
+                    } else{
+                        //check mark was not selected
+                       flashCardElement.isCorrect(1); 
+                    }
+                    
+                    //update data
+                    self.list_data[flashCardElement.id].correct = flashCardElement.isCorrect();
+                    self.checkerClicked = true;
+                }
+
+
+                self.incorrectButtonPushed = function(flashCardElement) {
+                    if(flashCardElement.isCorrect()===-1) {
+                        //x mark was already selected, so deselect it
+                        flashCardElement.isCorrect(0);
+                    } else{
+                        //x mark was not selected
+                       flashCardElement.isCorrect(-1); 
+                    }
+                    //update data
+                    self.list_data[flashCardElement.id].correct = flashCardElement.isCorrect();
+                    self.checkerClicked = true;
+                }
+
+                self.calculatePercentage = function() {
+                    /*
+                        loops through and calculates percentage,
+                        note if a card is left not graded (has a isCorrect() === 0),
+                        then it is not counted in the calculation
+                    */
+                    var totalGraded     = 0;
+                    var totalCorrect    = 0;
+                    var percentCorrect  = 0;
+
+                    for(var i=0; i<self.numberOfCards; i++) {
+                        
+
+                        if(self.flashCardArray()[i].isCorrect() === 1) {
+
+                            totalCorrect++;
+                            totalGraded++;
+                        } else if (self.flashCardArray()[i].isCorrect() === -1) {
+                            
+                            totalGraded++;
+                        }                    
+                    }
+                             
+                                
+                    if (totalGraded >0) {
+                        percentCorrect  = Math.round( (totalCorrect/totalGraded) * 100).toString();
+                    }
+
+                    self.percentageCorrect(percentCorrect);  
+                    self.meta_data["grade"] = percentCorrect;
+                    self.metaDataForAllLists.summary[self.summaryIndex].grade = percentCorrect;
+                    self.summary([]);
+                    self.summary(self.metaDataForAllLists.summary);
+
+                }
+
+                self.saveListChanges = function() {
+                    /* 
+                        code swaps the local storage data with self.list_data data
+                        essentially, the code updates this list
+                     */
+
+                    //-----save if needed when user
+                    if (self.checkerClicked) {
+                        self.calculatePercentage();
+                        localStorage.setObject("list"+self.listId, {"meta_data": self.meta_data, "list_data": self.list_data} );
+                        self.metaDataForAllLists.sortState = self.summarySortState;
+                        localStorage.setObject("meta_data", self.metaDataForAllLists);                
+                        self.checkerClicked = false;
+                    }
+                }
+
+                self.chooseList = function() {
+                    self.currentView('choose');
+                    self.hideCheckers(true);
+                    self.hideArrows(true);
+                    self.updateCardUi();
+                    self.saveListChanges();
+                }
+
+                self.homeScreen = function() {
+                    self.currentView('home');
+                    self.hideCheckers(true);
+                    self.hideArrows(true);
+                    self.updateCardUi();
+                    self.saveListChanges();
+                }
+
+                self.isOdd = function(number) {
+                    /*
+                        if the modulus of a number and 2 is not 0, 
+                        then it is odd
+                    */
+                    return ( parseInt(number) % 2 ) !== 0;
+                }
+
+                self.goToSpecificCardList = function(data, indexOfCardListInSummary) {
+                    var indexOfCardListInLocalStorage = data.id;
+                    self.initializeStudyMode(indexOfCardListInLocalStorage, indexOfCardListInSummary);
+                    self.updateCardUi();
+                }
+
+                self.exitApp = function() {
+                    self.saveListChanges(); 
+                    self.calculatePercentage();
+                    navigator.app.exitApp();
+                }
+
+		    }
+		    //------------------------creates an instance of the app called vm and applies bindings to it
+		    var vm = new app();
+		    ko.applyBindings(vm);
+		    //------------------------creates an instance of the app called vm and applies bindings to it
+
+
+        </script>
+    </body>
+</html>
+
+
+
+

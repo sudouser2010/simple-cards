@@ -1,0 +1,14 @@
+Simple Cards App Plan
+(1) develop following JavaScript coding standards
+
+(2) build app inside out
+	-in other words, start making the functional part of app first
+	-this makes it useful immediately
+
+(3) build app with Intel XDK IDE and use PhoneGap API's
+	-phone gap is more mature than Intel's App Framework
+
+(4) use Intel XDK's app designer
+	-choose Bootstrap3 with Slate theme
+
+(5) Test app with Intel XDK's emulator and my phone
