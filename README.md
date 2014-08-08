@@ -19,3 +19,8 @@ I'm using local storage to store the flashcard data. I chose local storage becau
 ##Deploying
 
 To view this application as a website, clone the project, navigate to www and open up index.html. It does not need access to the web because everything is stored locally.
+
+##Future Advancements
+
+In upcoming phases, the user will be able to add multimedia such as images and sounds to flashcards.
+
