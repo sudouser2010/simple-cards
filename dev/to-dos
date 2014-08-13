@@ -2,18 +2,40 @@ Phase1
 
 
 -----------------------------8/6/2014
-(0) make code scroll to top when sort buttons are clicked
+(0) make code scroll to top when sort buttons are clicked ++
+    >>added scroll to top to clickbinding on sort buttons
 (1) make end button work on home and choose list screen
 (2) make code pop up: "are you sure you want to exit"
 (3) when user holds button down on choose list for more than 5 seconds, he/she can edit it
 (4) when user holds card down, they can edit it
+(5) move title text down++
+(6) remove front and back++
+    -I think it might be a little distracting
+    >> removed the following code
+        <div class="" style="font-size:40px"
+        data-bind="css:{ isHidden: vm.currentView() !=='front' }">Front</div>
+        <div class="" style="font-size:40px"
+        data-bind="css:{ isHidden: vm.currentView() !=='back' }">Back</div>
+(7) remove padding of buttons on bottom and/or lineheight++
+    >>placed div with height of 4px above it
+(8) place a little bit of white space at the bottom of scrolling area++
+    -so user can see the very bottom of scroll area even when scroll area bounces back
+(9) make screen switch sides when user clicks on white space++
+    -remove current icon for switching sides
+        >> removed the following
+            <a href="#" class="col-xs-1 col-xs-height col-middle j-icon"
+            data-bind="css:{ isDisabled: vm.hideCheckers() }, click: vm.toggleSide">                
+                <span class="fa fa-refresh icon-show-as-clicked-blur no-hilight adjust-menu-padding" style="font-size:50px">
+                </span>
+            </a>
+        >>made touch layer which can tell the difference between a click and a drag on a card
 
 
 ----------------------------------------------7/23/2014
-(1) make buttons on top user can click to sort by grade or by name
-(2) add sort by grade functionality
+(1) make buttons on top user can click to sort by grade or by name++
+(2) add sort by grade functionality++
     -make default grade 0 instead of ""
-(3) When lists are sorted by grade, the grade is visible
+(3) When lists are sorted by grade, the grade is visible++
 (4) make clicking sound work ++
     >> trick was to make element of interest a button and style the button with the following:
     button {

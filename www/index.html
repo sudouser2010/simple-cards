@@ -63,31 +63,12 @@
                         </a>
 
 
-
-                        <div class="col-xs-8 col-xs-height col-middle j-icon" style= "">
-                            <div class="" style="font-size:40px"
-                            data-bind="css:{ isHidden: vm.currentView() !=='front' }">Front</div>
-                            <div class="" style="font-size:40px"
-                            data-bind="css:{ isHidden: vm.currentView() !=='back' }">Back</div>
-                            <div class="" style="font-size:40px"
-                            data-bind="css:{ isHidden: vm.currentView() !=='result' }">Results</div>
-                            <div id="select_list"
-                            data-bind="css:{ isHidden: vm.currentView() !=='choose' }">Select List</div>
-                        </div>
-
-
+                        <div class="col-xs-8" ></div>
                         <div class="col-xs-1 col-xs-height col-middle j-icon">
                             <span class="fa fa-refresh adjust-menu-padding isDisabled" style="font-size:50px;"></span>
                         </div>
-                        
-                        <a href="#" class="col-xs-1 col-xs-height col-middle j-icon"
-                        data-bind="css:{ isDisabled: vm.hideCheckers() }, click: vm.toggleSide">                
-                            <span class="fa fa-refresh icon-show-as-clicked-blur no-hilight adjust-menu-padding" style="font-size:50px">
-                            </span>
-                        </a>
-                        
-
-
+                        <div class="col-xs-1" ></div>
+                  
                     </div>
                 </div>
 
@@ -99,6 +80,28 @@
          
             <!-- Body-Content start -->
             <div id="body-content" style="position:absolute; margin-top:55px; width:100%;">
+                <div id="touch-layer" data-bind="css:{ isDisabled: vm.hideCheckers() }, click: vm.toggleSide" 
+                style="z-index:19; position: absolute; height:130%; width:100%"></div>
+
+
+                <!--page title -->
+                <div class="container-fluid container-xs-height">
+                    <div class="row row-xs-height">
+
+                        <div href="#" class="col-xs-2"></div>
+                        <div class="col-xs-8 col-xs-height col-middle j-icon" style= "">
+                            <div class="" style="font-size:40px"
+                            data-bind="css:{ isHidden: vm.currentView() !=='result' }">Results</div>
+                            <div id="select_list"
+                            data-bind="css:{ isHidden: vm.currentView() !=='choose' }">Select List</div>
+                        </div>
+                        <div href="#" class="col-xs-2"></div>
+
+                    </div>
+                </div>
+                <!--page title -->
+                
+
 
                 <a class='arrow' style="position:absolute; top:35%; left:0px" href="#" >                  
                     <span class="no-hilight glyphicon glyphicon-play 
@@ -146,13 +149,13 @@
                             style="">
                                 <button 
                                 class="col-xs-5 sorting_buttons_individual"
-                                data-bind="click:vm.sortSummaryByNames"
+                                data-bind="click:function() { vm.sortSummaryByNames(); myScroll.scrollTo(0, 0, 500, false) }"
                                 >
                                     By Name
                                 </button>
                                 <button 
                                 class="col-xs-5 col-xs-offset-2 sorting_buttons_individual"
-                                data-bind="click:vm.sortSummaryByGrades"
+                                data-bind="click: function() { vm.sortSummaryByGrades(); myScroll.scrollTo(0, 0, 500, false) }"
                                 >
                                     By Grade
                                 </button>
@@ -161,7 +164,7 @@
 
 
                             <!-- For scrollable content in body -->
-                            <div class="scroll-wrapper">
+                            <div class="scroll-wrapper" style="z-index:20">
 	                            <div class="scroller">
                 
                                     <!-- For studying flashcards -->
@@ -211,6 +214,8 @@
                                     </span>
                                     <!-- For Choose List -->
 
+
+                                    
 	                            </div>
                             </div>
                             <!-- For scrollable content in body -->
@@ -228,32 +233,33 @@
 
 
 		    <!-- Footer start -->
-	        <div id="body-footer" style="position:absolute; bottom:0%; width:100%; background-color: yellow">
+	        <div id="body-footer" style="position:absolute; bottom:0%; width:100%; background-color: yellow; z-index:21">
 
                 <div class="container container-xs-height">
-                    <div class="row row-xs-height">
+                    <div class="row row-xs-height" style="line-height:.5">
 
                         <!-- ko with: vm.flashCardArray()[vm.flashCardId()] -->
                             <a href="#" class="col-xs-4 col-xs-height col-middle j-icon button-show-as-clicked"
                             data-bind="css:{ wrongCorrect: $data.isCorrect()===1, isDisabled: vm.hideCheckers() }, 
                             click: vm.correctButtonPushed">     
 	                            <span  class="glyphicon glyphicon-ok button-icon-center" 
-                                style="font-size:45px; color:green"></span>
+                                style="font-size:40px; color:green"></span>
                             </a>
 
                              <a href="#" class="col-xs-4 col-xs-height col-middle j-icon button-show-as-clicked" 
                             data-bind="css:{ wrongCorrect: $data.isCorrect()===-1, isDisabled: vm.hideCheckers() },
                             click: vm.incorrectButtonPushed">     
                                 <span  class="glyphicon glyphicon-remove"
-                                style="font-size:45px; color:red"
+                                style="font-size:40px; color:red"
                                 ></span>                        
                             </a>  
                         <!-- /ko -->
 
 
                         <a href="#" class="col-xs-4 col-xs-height col-middle j-icon button-show-as-clicked"
-                        data-bind="click: vm.exitApp" >                
-                            <span  class="" style="font-size:45px">End</span>
+                        data-bind="click: vm.exitApp"  >           
+                            <div style="height:4px"></div>     
+                            <span style="font-size:25px;">End</span>
                         </a>
 
                     </div>
@@ -268,7 +274,6 @@
 		<script src="js/jquery.min.js"></script>
 		<script src="js/custom-js.js"></script>
         <script src="data.js"></script>
-
 
         <script>
 		    function flashCard(uniqueId, front, back, correct) {
@@ -452,7 +457,7 @@
                 }
 
 		        self.toggleSide = function() {
-        
+
                     if( self.currentView() === 'front') {
                         self.currentView('back');
                     } else if( self.currentView() === 'back') {

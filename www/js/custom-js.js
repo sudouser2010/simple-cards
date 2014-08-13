@@ -87,5 +87,23 @@ $( window ).on( "resize", function( event ) {
 //-------------------------------------does stuff after orientation change
 
 
-
+//-------------so code can tell the difference between user clicking and scrolling on card
+$('.scroll-wrapper')
+   .on('mousedown', function() {
+        if (!vm.hideCheckers()) {
+            $(this).data("couldBeClickOnCard", true );
+        } else {
+            $(this).data("couldBeClickOnCard", false );
+        }
+    })
+   .on('mousemove', function() {
+        $(this).data("couldBeClickOnCard", false );
+    })
+   .on('click', function() {
+        if(!vm.hideCheckers() && $(this).data("couldBeClickOnCard")) {
+            //toogle side b/c user is clicking on card, not scrolling
+            vm.toggleSide();
+        }
+    });
+//-------------so code can tell the difference between user clicking and scrolling on card
 
