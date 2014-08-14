@@ -4,7 +4,7 @@ Phase1
 -----------------------------8/6/2014
 (0) make code scroll to top when sort buttons are clicked ++
     >>added scroll to top to clickbinding on sort buttons
-(1) make end button work on home and choose list screen
+(1) make end button work on home and choose list screen ++
 (2) make code pop up: "are you sure you want to exit"
 (3) when user holds button down on choose list for more than 5 seconds, he/she can edit it
 (4) when user holds card down, they can edit it
@@ -29,7 +29,8 @@ Phase1
                 </span>
             </a>
         >>made touch layer which can tell the difference between a click and a drag on a card
-
+(10) fix bug with extra space++
+    -happens when touch layer is present
 
 ----------------------------------------------7/23/2014
 (1) make buttons on top user can click to sort by grade or by name++

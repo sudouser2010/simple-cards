@@ -40,7 +40,7 @@
     >
 
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~Page-Container start -->
-        <div id="page-container" style="position: relative; height:100%; width:100%">
+        <div id="page-container" style="position: relative; height:100%; width:100%; overflow: hidden;">
 
 
             <!-- Body-Header start -->
@@ -88,14 +88,12 @@
                 <div class="container-fluid container-xs-height">
                     <div class="row row-xs-height">
 
-                        <div href="#" class="col-xs-2"></div>
-                        <div class="col-xs-8 col-xs-height col-middle j-icon" style= "">
+                        <div class="col-xs-12 col-xs-height col-middle j-icon" style= "">
                             <div class="" style="font-size:40px"
                             data-bind="css:{ isHidden: vm.currentView() !=='result' }">Results</div>
                             <div id="select_list"
                             data-bind="css:{ isHidden: vm.currentView() !=='choose' }">Select List</div>
                         </div>
-                        <div href="#" class="col-xs-2"></div>
 
                     </div>
                 </div>
@@ -215,7 +213,7 @@
                                     <!-- For Choose List -->
 
 
-                                    
+                                    <div style="height:100px"></div>
 	                            </div>
                             </div>
                             <!-- For scrollable content in body -->
@@ -635,8 +633,11 @@
                 }
 
                 self.exitApp = function() {
-                    self.saveListChanges(); 
-                    self.calculatePercentage();
+
+                   if (self.checkerClicked) {
+                        self.saveListChanges();
+                        self.calculatePercentage();
+                    }
                     navigator.app.exitApp();
                 }
 
