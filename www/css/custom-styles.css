@@ -244,6 +244,29 @@ button {
 font-size:40px; padding:10px;
 }
 
+/* study-edit button */
+.study_edit_selected {
+    color: rgb(50,50,50) !important;
+}
+
+.study_edit {
+    cursor: pointer;
+    color: #428bca;
+}
+
+#enter_name_input {
+    text-align:center; height:50px; font-size:25px;
+}
+
+#enter_name_button {
+    margin-top:5%; background-color: rgb(200,200,100); height:50px; font-size:40px;
+}
+
+#non_scrollable_y_adjust {
+    margin-top:10%;
+}
+
+
 /* Portrait */
 @media screen and (orientation:portrait) {
 
@@ -275,6 +298,14 @@ font-size:40px; padding:10px;
         font-size:30px;
     }
 
+    #enter_name_input {
+        font-size:15px;
+    }
+
+    #non_scrollable_y_adjust {
+        margin-top:40%;
+    }
+
 }
 
 
@@ -284,12 +315,4 @@ font-size:40px; padding:10px;
 }
 
 
-/* study-edit button */
-.study_edit_selected {
-color: #428bca;
-}
-
-.study_edit {
-    cursor: pointer;
-}
 

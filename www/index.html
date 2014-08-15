@@ -64,13 +64,20 @@
 
 
                         <div class="col-xs-7" ></div>
-                        <a href="#" class="col-xs-1 col-xs-height col-middle j-icon adjust-menu-padding">                
-                            <span class="fa fa-play icon-show-as-clicked-blur no-hilight" style="font-size:45px"></span>
-                        </a>
-                        <a href="#" class="col-xs-1 col-xs-height col-middle j-icon adjust-menu-padding">                
-                            <span class="fa fa-edit icon-show-as-clicked-blur no-hilight" style="font-size:50px"></span>
-                        </a>
-                        <a href="#" class="col-xs-1 col-xs-height col-middle j-icon adjust-menu-padding">                
+                        <div href="#" class="col-xs-1 col-xs-height col-middle j-icon adjust-menu-padding"
+                        data-bind="css:{ isHidden: vm.currentView() === 'result' || vm.hideArrows() }">                
+                            <span class="fa fa-play study_edit" style="font-size:45px"
+                            data-bind="click: vm.studyCards, css:{ study_edit_selected: vm.studyMode() === 'study' }"
+                            ></span>
+                        </div>
+                        <div href="#" class="col-xs-1 col-xs-height col-middle j-icon adjust-menu-padding"
+                        data-bind="css:{ isHidden: vm.currentView() === 'result' || vm.hideArrows() }">
+                            <span class="fa fa-edit study_edit" style="font-size:50px"
+                            data-bind="click: vm.editCards, css:{ study_edit_selected: vm.studyMode() === 'edit' }"
+                            ></span>
+                        </div>
+                        <a href="#" class="col-xs-1 col-xs-height col-middle j-icon adjust-menu-padding"
+                        data-bind="css:{ isHidden: vm.currentView() === 'result' || vm.hideArrows() }">            
                             <span class="fa fa-cog icon-show-as-clicked-blur no-hilight" style="font-size:40px"></span>
                         </a>
                   
@@ -129,7 +136,7 @@
                         class="col-xs-10 col-xs-offset-1" style="height:100%">
 
                             <button class="col-xs-12 homeScreenButtons light" style="margin-top:5%;"
-                            data-bind="click:"
+                            data-bind="click:vm.chooseCreate"
                             >
                                 Create Cards
                             </button>
@@ -167,9 +174,9 @@
 
 
                             <!-- For scrollable content in body -->
-                            <div class="scroll-wrapper" style="z-index:20">
+                            <div class="scroll-wrapper" style="z-index:20" data-bind="css:{ isHidden: vm.currentView() ==='enter_name' }">
 	                            <div class="scroller">
-                
+
                                     <!-- For studying flashcards -->
                                     <div class="first-word" style="text-align:center; font-size:45px; margin-top:15%"
                                     data-bind="css:{ isHidden: vm.currentView() !=='front' }, text:vm.frontText()" >Concept</div>
@@ -223,6 +230,23 @@
                             </div>
                             <!-- For scrollable content in body -->
 
+                            <!-- For non-scrollable content in body -->
+                            <div id="non_scrollable_y_adjust">
+
+                                <!-- For Enter Name -->
+                                <div data-bind="css:{ isHidden: vm.currentView() !=='enter_name' }">
+
+                                    <input id="enter_name_input" class="col-xs-12" style=""
+                                    type="text" placeholder="Enter New Card List Name">
+
+
+                                    <button id="enter_name_button">
+                                        Enter
+                                    </button>
+                                </div>
+                                <!-- For Enter Name -->
+                            </div>
+                            <!-- For non-scrollable content in body -->
 	                    </div> 
 
                     </div> 
@@ -320,12 +344,13 @@
                 self.currentView    = ko.observable('home');
                 self.hideCheckers   = ko.observable(true);
                 self.hideArrows     = ko.observable(true);
-                self.frontText = ko.observable();
-                self.backText = ko.observable();
+                self.frontText      = ko.observable();
+                self.backText       = ko.observable();
                 self.displayNextButton = ko.observable(false);
                 self.displayPreviousButton = ko.observable(false);
                 self.checkerClicked = false;        //when the user click on a checker
                 self.showListGrade  = ko.observable(false);
+                self.studyMode      = ko.observable('nada');
                 //---------------------------------------------initializes app
 
 
@@ -426,6 +451,7 @@
                     self.meta_data      = local_data.meta_data;
                     self.flashCardArray([]);
                     self.numberOfCards  = self.list_data.length;
+                    self.studyMode('study');
 
 
 
@@ -623,6 +649,13 @@
                     self.saveListChanges();
                 }
 
+                self.studyCards = function() {
+                    self.studyMode('study');
+                }
+                self.editCards = function() {
+                    self.studyMode('edit');
+                }
+
                 self.isOdd = function(number) {
                     /*
                         if the modulus of a number and 2 is not 0, 
@@ -646,6 +679,13 @@
                     navigator.app.exitApp();
                 }
 
+                self.chooseCreate = function() {
+                    self.currentView('enter_name');
+                    self.studyMode('edit');
+                }
+
+                self.initializeEditMode = function(id, indexOfCardListInSummary) {
+                }
 		    }
 		    //------------------------creates an instance of the app called vm and applies bindings to it
 		    var vm = new app();
