@@ -284,7 +284,12 @@ font-size:40px; padding:10px;
 }
 
 
+/* study-edit button */
+.study_edit_selected {
+color: #428bca;
+}
 
-
-
+.study_edit {
+    cursor: pointer;
+}
 
