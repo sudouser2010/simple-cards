@@ -7,7 +7,7 @@ Phase1
 (6) extend bottom area ++
 (7) disable results page when in edit mode
 (8) make font for front side a little bit larger in edit mode
-(9) remove correct and wrong buttons from edit mode
+(9) remove correct and wrong buttons from edit mode ++
 (10) create inputs for text ++
 (11) make changes to text persistant
 (12) add button to remove text field
