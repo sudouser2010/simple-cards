@@ -45,7 +45,8 @@ function app() {
     self.displayPreviousButton = ko.observable(false);
     self.checkerClicked = false;        //when the user click on a checker
     self.showListGrade  = ko.observable(false);
-    self.studyMode      = ko.observable('nada');
+    self.studyMode      = ko.observable('study');
+    self.lastActiveElement = "nada";
     //---------------------------------------------initializes app
 
 

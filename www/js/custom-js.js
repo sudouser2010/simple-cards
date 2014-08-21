@@ -88,32 +88,51 @@ $( window ).on( "resize", function( event ) {
 
 
 //-------------so code can tell the difference between user clicking and scrolling on card
-$('.scroll-wrapper')
+$('.scroll-wrapper, #touch-layer')
    .on('mousedown', function() {
         if (!vm.hideCheckers()) {
             $(this).data("couldBeClickOnCard", true );
         } else {
             $(this).data("couldBeClickOnCard", false );
         }
+
+        //hides footer if click is on input
+        if(arguments[0].target.tagName === "INPUT") {
+            $("#body-footer").addClass("isDisabled");
+            vm.lastActiveElement = "INPUT";
+        }
+
     })
    .on('mousemove', function() {
         $(this).data("couldBeClickOnCard", false );
     })
    .on('click', function() {
-        if(!vm.hideCheckers() && $(this).data("couldBeClickOnCard")) {
-            //toogle side b/c user is clicking on card, not scrolling
-            vm.toggleSide();
+        if(!vm.hideCheckers() && $(this).data("couldBeClickOnCard") ) {
+            //toogle side (maybe) b/c user is clicking on card, not scrolling
+
+            if (vm.lastActiveElement === "INPUT" && arguments[0].target.tagName !== "INPUT" ) {
+                //if the input is focused and click is not on input, then only remove the focus (and don't toggle side)
+                $('input').blur();
+                vm.lastActiveElement= arguments[0].target.tagName;
+            } else if (arguments[0].target.tagName !== "INPUT") {
+                //if this click is not on an input, then toggle side
+                vm.toggleSide();
+            }
         }
     });
 //-------------so code can tell the difference between user clicking and scrolling on card
 
-//-----------------hides footer when user is editing text
-$("#enter_name_input").on("focus", function(){
+//----------------bring back footer for all cases except for inputs
+$("input").on("focus", function(){
     $("#body-footer").addClass("isDisabled");
-}).on("blur", function(){
-    $("#body-footer").removeClass("isDisabled");
 });
-//-----------------hides footer when user is editing text
+
+$("*").on("click", function(){
+    if (arguments[0].target.tagName !== "INPUT") {
+        $("#body-footer").removeClass("isDisabled");
+    }
+});
+//----------------bring back footer for all cases except for inputs
 
 
 

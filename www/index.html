@@ -92,7 +92,7 @@
          
             <!-- Body-Content start -->
             <div id="body-content" style="position:absolute; margin-top:50px; width:100%;">
-                <div id="touch-layer" data-bind="css:{ isDisabled: vm.hideCheckers() }, click: vm.toggleSide" 
+                <div id="touch-layer" data-bind="css:{ isDisabled: vm.hideCheckers() }" 
                 style="z-index:19; position: absolute; height:130%; width:100%"></div>
 
 
@@ -178,13 +178,31 @@
 	                            <div class="scroller">
 
                                     <!-- For studying flashcards -->
-                                    <div class="first-word" style="text-align:center; font-size:45px; margin-top:15%"
-                                    data-bind="css:{ isHidden: vm.currentView() !=='front' }, text:vm.frontText()" >Concept</div>
+                                        <!-- ko if: vm.studyMode() === "study" -->
+                                        <div class="first-word" style="text-align:center; font-size:45px; margin-top:15%"
+                                        data-bind="css:{ isHidden: vm.currentView() !=='front' }, text:vm.frontText()" >Concept</div>
 
-                                    <div style="text-align:center; font-size:25px; margin-top:10%" 
-                                    data-bind="css:{ isHidden: vm.currentView() !=='back' }, foreach: vm.backText()" >
-                                        <div class="first-word" data-bind="text:'&#149; '+$data"></div>
-                                    </div>
+                                        <div style="text-align:center; font-size:25px; margin-top:10%" 
+                                        data-bind="css:{ isHidden: vm.currentView() !=='back' }, foreach: vm.backText()" >
+                                            <div class="first-word" data-bind="text:'&#149; '+$data"></div>
+                                        </div>
+                                        <!-- /ko -->
+
+                                        <!-- ko if: vm.studyMode() === "edit" -->
+                                            <!-- ko if: vm.currentView() === "back" -->
+                                            <div data-bind="foreach: vm.backText()" style="margin-top:15%;">
+                                                <input class="col-xs-12" style="height:50px; font-size:25px; margin-bottom:10px"
+                                                type="text" data-bind="value:$data">
+                                            </div>
+                                            <!-- /ko -->
+                                            <!-- ko if: vm.currentView() === "front" -->
+                                            <div style="margin-top:15%">
+                                                <input class="col-xs-12" style="height:50px; font-size:45px;"
+                                                type="text" data-bind="value:vm.frontText()">
+                                            </div>
+                                            <!-- /ko -->
+                                        <!-- /ko -->
+
 	                                <!-- For studying flashcards -->
 
                                     <!-- For results -->

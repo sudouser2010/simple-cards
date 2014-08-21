@@ -4,7 +4,13 @@ Phase1
 (3) when user holds card down, they can edit it
 (4) hide bottom bar when uer is editing text
 (5) turn on no highlight on button ++
-(6) extend bottom area
+(6) extend bottom area ++
+(7) disable results page when in edit mode
+(8) make font for front side a little bit larger in edit mode
+(9) remove correct and wrong buttons from edit mode
+(10) create inputs for text ++
+(11) make changes to text persistant
+(12) add button to remove text field
 
 -----------------------------8/6/2014
 (0) make code scroll to top when sort buttons are clicked ++
