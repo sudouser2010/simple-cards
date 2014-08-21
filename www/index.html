@@ -65,19 +65,19 @@
 
                         <div class="col-xs-7" ></div>
                         <div href="#" class="col-xs-1 col-xs-height col-middle j-icon adjust-menu-padding"
-                        data-bind="css:{ isHidden: vm.currentView() === 'result' || vm.hideArrows() }">                
-                            <span class="fa fa-play study_edit" style="font-size:45px"
+                        data-bind="css:{ isDisabled: vm.currentView() === 'result' || vm.hideArrows() }">                
+                            <span class="fa fa-play study_edit no-hilight" style="font-size:45px"
                             data-bind="click: vm.studyCards, css:{ study_edit_selected: vm.studyMode() === 'study' }"
                             ></span>
                         </div>
                         <div href="#" class="col-xs-1 col-xs-height col-middle j-icon adjust-menu-padding"
-                        data-bind="css:{ isHidden: vm.currentView() === 'result' || vm.hideArrows() }">
-                            <span class="fa fa-edit study_edit" style="font-size:50px"
+                        data-bind="css:{ isDisabled: vm.currentView() === 'result' || vm.hideArrows() }">
+                            <span class="fa fa-edit study_edit no-hilight" style="font-size:50px"
                             data-bind="click: vm.editCards, css:{ study_edit_selected: vm.studyMode() === 'edit' }"
                             ></span>
                         </div>
                         <a href="#" class="col-xs-1 col-xs-height col-middle j-icon adjust-menu-padding"
-                        data-bind="css:{ isHidden: vm.currentView() === 'result' || vm.hideArrows() }">            
+                        data-bind="css:{ isDisabled: vm.currentView() === 'result' || vm.hideArrows() }">            
                             <span class="fa fa-cog icon-show-as-clicked-blur no-hilight" style="font-size:40px"></span>
                         </a>
                   
@@ -91,7 +91,7 @@
 
          
             <!-- Body-Content start -->
-            <div id="body-content" style="position:absolute; margin-top:55px; width:100%;">
+            <div id="body-content" style="position:absolute; margin-top:50px; width:100%;">
                 <div id="touch-layer" data-bind="css:{ isDisabled: vm.hideCheckers() }, click: vm.toggleSide" 
                 style="z-index:19; position: absolute; height:130%; width:100%"></div>
 

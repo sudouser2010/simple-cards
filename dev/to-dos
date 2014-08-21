@@ -1,13 +1,18 @@
 Phase1
-
+(1) make code pop up: "are you sure you want to exit"
+(2) when user holds button down on choose list for more than 5 seconds, he/she can edit it
+(3) when user holds card down, they can edit it
+(4) hide bottom bar when uer is editing text
+(5) turn on no highlight on button ++
+(6) extend bottom area
 
 -----------------------------8/6/2014
 (0) make code scroll to top when sort buttons are clicked ++
     >>added scroll to top to clickbinding on sort buttons
 (1) make end button work on home and choose list screen ++
-(2) make code pop up: "are you sure you want to exit"
-(3) when user holds button down on choose list for more than 5 seconds, he/she can edit it
-(4) when user holds card down, they can edit it
+(2) make code pop up: "are you sure you want to exit"--
+(3) when user holds button down on choose list for more than 5 seconds, he/she can edit it--
+(4) when user holds card down, they can edit it--
 (5) move title text down++
 (6) remove front and back++
     -I think it might be a little distracting

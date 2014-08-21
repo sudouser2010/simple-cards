@@ -53,7 +53,7 @@ Storage.prototype.getObject = function(key) {
 function setBodyHeight() {
     //this is needed because it determines the scroll area
     //var footerDistanceFromTop = $("#body-footer").offset().top;
-    $("#body-content").height($("#body-footer").offset().top-90);
+    $("#body-content").height($("#body-footer").offset().top-50);
 }
 
 //--------------------set body height
@@ -106,4 +106,15 @@ $('.scroll-wrapper')
         }
     });
 //-------------so code can tell the difference between user clicking and scrolling on card
+
+//-----------------hides footer when user is editing text
+$("#enter_name_input").on("focus", function(){
+    $("#body-footer").addClass("isDisabled");
+}).on("blur", function(){
+    $("#body-footer").removeClass("isDisabled");
+});
+//-----------------hides footer when user is editing text
+
+
+
 
