@@ -319,7 +319,7 @@ function app() {
             essentially, the code updates this list
          */
 
-        //-----save if needed when user
+        //-----save if needed
         if (self.checkerClicked) {
             self.calculatePercentage();
             localStorage.setObject("list"+self.listId, {"meta_data": self.meta_data, "list_data": self.list_data} );
@@ -381,6 +381,30 @@ function app() {
     }
 
     self.initializeEditMode = function(id, indexOfCardListInSummary) {
+    }
+
+    self.saveCard = function() {
+
+        if( self.currentView()==='front') {
+            var front_text = $("#edit_front").val();
+            vm.frontText(front_text)
+            self.flashCardArray()[self.flashCardId()].front = front_text;
+            self.list_data[self.flashCardId()]["front"]     = front_text;
+        } else {
+            var back_text = [];
+            var edit_back_elements = $(document.getElementsByClassName('edit_back'));
+            var i = 0;
+            while (i < edit_back_elements.length) {
+                back_text.push($(edit_back_elements[i]).val());
+                i++;
+            }
+            vm.backText(back_text)
+            self.flashCardArray()[self.flashCardId()].back  = back_text;
+            self.list_data[self.flashCardId()]["back"]      = back_text;
+        }
+
+        localStorage.setObject("list"+self.listId, {"meta_data": self.meta_data, "list_data": self.list_data} );
+
     }
 }
 //------------------------creates an instance of the app called vm and applies bindings to it

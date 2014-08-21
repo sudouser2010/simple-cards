@@ -9,8 +9,9 @@ Phase1
 (8) make font for front side a little bit larger in edit mode
 (9) remove correct and wrong buttons from edit mode ++
 (10) create inputs for text ++
-(11) make changes to text persistant
+(11) make changes to text persistent ++
 (12) add button to remove text field
+(13) added save button on edit mode++
 
 -----------------------------8/6/2014
 (0) make code scroll to top when sort buttons are clicked ++
