@@ -189,7 +189,16 @@
                                         <!-- /ko -->
 
                                         <!-- ko if: vm.studyMode() === "edit" -->
+                                                                                       
                                             <!-- ko if: vm.currentView() === "back" -->
+                                            <div style="margin-top:2%">
+                                                <div class="disable-touch-click col-xs-12 light" 
+                                                    style="font-size:20px; text-align:center; cursor:pointer; padding:10px"
+                                                    data-bind="click:vm.addNewTextField">
+                                                    Add Text Field
+                                                </div>
+                                            </div>
+
                                             <div data-bind="foreach: vm.backText()" style="margin-top:15%;">
                                                 <div class="input-group input-group-lg" style="margin-bottom:10px">
                                                     <span class="disable-touch-click input-group-addon glyphicon glyphicon-remove" 

@@ -348,9 +348,11 @@ function app() {
 
     self.studyCards = function() {
         self.studyMode('study');
+        self.updateCardUi();
     }
     self.editCards = function() {
         self.studyMode('edit');
+        self.updateCardUi();
     }
 
     self.isOdd = function(number) {
@@ -386,14 +388,14 @@ function app() {
 
 
     self.updateFrontData =  function(front_text) {
-        vm.frontText(front_text)
+        self.frontText(front_text)
         self.flashCardArray()[self.flashCardId()].front = front_text;
         self.list_data[self.flashCardId()]["front"]     = front_text;    
         localStorage.setObject("list"+self.listId, {"meta_data": self.meta_data, "list_data": self.list_data} );
     }
 
     self.updateBackData =  function(back_text) {
-        vm.backText(back_text)
+        self.backText(back_text)
         self.flashCardArray()[self.flashCardId()].back  = back_text;
         self.list_data[self.flashCardId()]["back"]      = back_text;
         localStorage.setObject("list"+self.listId, {"meta_data": self.meta_data, "list_data": self.list_data} );
@@ -420,6 +422,12 @@ function app() {
     self.removeThisTextField = function(index) {  
         var back_text = removeItemFromArray(self.list_data[self.flashCardId()]["back"], index);  
         self.updateBackData(back_text);
+    }
+
+    self.addNewTextField = function() {
+        var back_text   = new Array("");
+        back_text       = back_text.concat(self.backText());
+        self.backText(back_text);
     }
 
 }
