@@ -12,6 +12,9 @@ Phase1
 (11) make changes to text persistent ++
 (12) add button to remove text field
 (13) added save button on edit mode++
+(14) add button to add text field
+(15) use bootstrap with glyicons, grid systems,form, and input group++
+    >>compiled it online @ http://getbootstrap.com/customize
 
 -----------------------------8/6/2014
 (0) make code scroll to top when sort buttons are clicked ++
