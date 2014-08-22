@@ -193,18 +193,18 @@
                                             <div data-bind="foreach: vm.backText()" style="margin-top:15%;">
                                                 <div class="input-group input-group-lg" style="margin-bottom:10px">
                                                     <span  class="input-group-addon glyphicon glyphicon-remove" 
-                                                    style="color:red; font-size:30px; height:60px; padding:4px !important"></span> 
-                                                    <input class="form-control edit_back" style="font-size:25px; height:62px"" 
+                                                    style="color:red; font-size:30px; padding:4px !important"></span> 
+                                                    <input class="form-control edit_back" style="height:68px; font-size:25px; padding:0px" 
                                                     type="text" data-bind="value:$data">
                                                 </div>
                                             </div>
                                             <!-- /ko -->
                                             <!-- ko if: vm.currentView() === "front" -->
                                             <div style="margin-top:15%">
-                                                <div class="input-group input-group-lg" style="margin-bottom:10px">
+                                                <div class="input-group input-group-lg" style="">
                                                     <span  class="input-group-addon glyphicon glyphicon-remove" 
-                                                    style="color:red; font-size:30px; height:60px; padding:4px !important"></span> 
-                                                    <input id="edit_front" class="form-control" style="height:62px; font-size:45px;"
+                                                    style="color:red; font-size:30px; padding:4px !important"></span> 
+                                                    <input id="edit_front" class="form-control" style="height:68px; font-size:45px;  padding:0px"
                                                     type="text" data-bind="value:vm.frontText()">
                                                 </div>
 
