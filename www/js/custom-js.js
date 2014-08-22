@@ -114,7 +114,7 @@ $('.scroll-wrapper, #touch-layer')
                 //if the input is focused and click is not on input, then only remove the focus (and don't toggle side)
                 $('input').blur();
                 vm.lastActiveElement= arguments[0].target.tagName;
-            } else if (arguments[0].target.tagName !== "INPUT") {
+            } else if (arguments[0].target.tagName !== "INPUT" && arguments[0].target.classList[0]!=="disable-touch-click") {
                 //if this click is not on an input, then toggle side
                 vm.toggleSide();
             }
