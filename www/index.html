@@ -293,34 +293,23 @@
                             <span  class="glyphicon glyphicon-remove isDisabled" style="font-size:40px"></span>                    
                         </a>
                         <!-- height place holder -->
-                        
-                        <!-- ko if: vm.studyMode() === "study" -->
-                            <!-- ko with: vm.flashCardArray()[vm.flashCardId()] -->
-                                <a href="#" class="col-xs-4 col-xs-height col-middle j-icon button-show-as-clicked"
-                                data-bind="css:{ wrongCorrect: $data.isCorrect()===1, isDisabled: vm.hideCheckers()}, 
-                                click: vm.correctButtonPushed">     
-	                                <span  class="glyphicon glyphicon-ok button-icon-center" 
-                                    style="font-size:40px; color:green"></span>
-                                </a>
 
-                                <a href="#" class="col-xs-4 col-xs-height col-middle j-icon button-show-as-clicked" 
-                                data-bind="css:{ wrongCorrect: $data.isCorrect()===-1, isDisabled: vm.hideCheckers()},
-                                click: vm.incorrectButtonPushed">     
-                                    <span  class="glyphicon glyphicon-remove"
-                                    style="font-size:40px; color:red"
-                                    ></span>                        
-                                </a>  
-                            <!-- /ko -->
-                        <!-- /ko -->
-
-
-
-            		    <!-- for saving edited cards -->
-                            <a href="#" class="col-xs-8 col-xs-height col-middle j-icon button-show-as-clicked" 
-                            data-bind="click: vm.saveCard, css:{ isHidden: vm.studyMode()!=='edit'}"> 
-                                <span style="font-size:25px;">Save Changes</span>                      
+                        <!-- ko with: vm.flashCardArray()[vm.flashCardId()] -->
+                            <a href="#" class="col-xs-4 col-xs-height col-middle j-icon button-show-as-clicked"
+                            data-bind="css:{ wrongCorrect: $data.isCorrect()===1, isDisabled: vm.hideCheckers() || vm.studyMode()=='edit'}, 
+                            click: vm.correctButtonPushed">
+                                <span  class="glyphicon glyphicon-ok button-icon-center" 
+                                style="font-size:40px; color:green"></span>
                             </a>
-            		    <!-- for saving edited cards -->
+
+                            <a href="#" class="col-xs-4 col-xs-height col-middle j-icon button-show-as-clicked" 
+                            data-bind="css:{ wrongCorrect: $data.isCorrect()===-1, isDisabled: vm.hideCheckers() || vm.studyMode()=='edit'},
+                            click: vm.incorrectButtonPushed">
+                                <span  class="glyphicon glyphicon-remove"
+                                style="font-size:40px; color:red"
+                                ></span>
+                            </a>
+                        <!-- /ko -->
 
                         <a href="#" class="col-xs-4 col-xs-height col-middle j-icon button-show-as-clicked"
                         data-bind="click: vm.exitApp"  >           
