@@ -428,6 +428,7 @@ function app() {
         var back_text   = new Array("");
         back_text       = back_text.concat(self.backText());
         self.backText(back_text);
+        self.saveCard()
     }
 
 }
