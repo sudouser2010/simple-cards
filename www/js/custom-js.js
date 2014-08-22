@@ -135,5 +135,19 @@ $("*").on("click", function(){
 //----------------bring back footer for all cases except for inputs
 
 
+//-----------------------removing an item from array
+function removeItemFromArray(array, index_of_item_to_remove) {
+    var new_array = [];
+    var array_length = array.length;
+
+    for (var index=0; index<array_length; index++) {
+      if (index != index_of_item_to_remove) {
+        new_array.push(array[index]);
+        }
+    }
+    return new_array;
+}
+//-----------------------removing an item from array
+
 
 

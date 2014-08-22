@@ -383,13 +383,26 @@ function app() {
     self.initializeEditMode = function(id, indexOfCardListInSummary) {
     }
 
+
+    self.updateFrontData =  function(front_text) {
+        vm.frontText(front_text)
+        self.flashCardArray()[self.flashCardId()].front = front_text;
+        self.list_data[self.flashCardId()]["front"]     = front_text;    
+        localStorage.setObject("list"+self.listId, {"meta_data": self.meta_data, "list_data": self.list_data} );
+    }
+
+    self.updateBackData =  function(back_text) {
+        vm.backText(back_text)
+        self.flashCardArray()[self.flashCardId()].back  = back_text;
+        self.list_data[self.flashCardId()]["back"]      = back_text;
+        localStorage.setObject("list"+self.listId, {"meta_data": self.meta_data, "list_data": self.list_data} );
+    }
+
     self.saveCard = function() {
 
         if( self.currentView()==='front') {
             var front_text = $("#edit_front").val();
-            vm.frontText(front_text)
-            self.flashCardArray()[self.flashCardId()].front = front_text;
-            self.list_data[self.flashCardId()]["front"]     = front_text;
+            self.updateFrontData(front_text);
         } else {
             var back_text = [];
             var edit_back_elements = $(document.getElementsByClassName('edit_back'));
@@ -398,14 +411,15 @@ function app() {
                 back_text.push($(edit_back_elements[i]).val());
                 i++;
             }
-            vm.backText(back_text)
-            self.flashCardArray()[self.flashCardId()].back  = back_text;
-            self.list_data[self.flashCardId()]["back"]      = back_text;
+            self.updateBackData(back_text);
         }
-
-        localStorage.setObject("list"+self.listId, {"meta_data": self.meta_data, "list_data": self.list_data} );
-
     }
+
+    self.removeThisTextField = function(index) {  
+        var back_text = removeItemFromArray(self.list_data[self.flashCardId()]["back"], index);  
+        self.updateBackData(back_text);
+    }
+
 }
 //------------------------creates an instance of the app called vm and applies bindings to it
 var vm = new app();

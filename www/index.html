@@ -193,6 +193,7 @@
                                             <div data-bind="foreach: vm.backText()" style="margin-top:15%;">
                                                 <div class="input-group input-group-lg" style="margin-bottom:10px">
                                                     <span class="disable-touch-click input-group-addon glyphicon glyphicon-remove" 
+                                                    data-bind="click: function() { vm.removeThisTextField($index()) }"
                                                     style="color:red; font-size:30px; padding:4px !important; cursor:pointer"></span> 
                                                     <input class="form-control edit_back" style="height:70px; font-size:25px; padding:0px" 
                                                     type="text" data-bind="value:$data">
