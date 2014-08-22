@@ -52,8 +52,7 @@ Storage.prototype.getObject = function(key) {
 
 function setBodyHeight() {
     //this is needed because it determines the scroll area
-    //var footerDistanceFromTop = $("#body-footer").offset().top;
-    $("#body-content").height($("#body-footer").offset().top-50);
+    $("#body-content").height($("#body-footer").offset().top + $("#body-footer").height() - 50);
 }
 
 //--------------------set body height
