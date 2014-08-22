@@ -47,6 +47,7 @@ function app() {
     self.showListGrade  = ko.observable(false);
     self.studyMode      = ko.observable('study');
     self.lastActiveElement = "nada";
+    self.shouldUpdateCardData = false;
     //---------------------------------------------initializes app
 
 
@@ -413,6 +414,7 @@ function app() {
             }
             self.updateBackData(back_text);
         }
+        self.shouldUpdateCardData = false;
     }
 
     self.removeThisTextField = function(index) {  

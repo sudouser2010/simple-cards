@@ -96,10 +96,11 @@ $('.scroll-wrapper, #touch-layer')
             $(this).data("couldBeClickOnCard", false );
         }
 
-        //hides footer if click is on input
+        //hides footer if click is on input and tells app, data is updatable
         if(arguments[0].target.tagName === "INPUT") {
             $("#body-footer").addClass("isDisabled");
             vm.lastActiveElement = "INPUT";
+            vm.shouldUpdateCardData = true;
         }
 
     })
@@ -130,6 +131,10 @@ $("input").on("focus", function(){
 $("*").on("click", function(){
     if (arguments[0].target.tagName !== "INPUT") {
         $("#body-footer").removeClass("isDisabled");
+
+        if(vm.shouldUpdateCardData) {
+            vm.saveCard();
+        }
     }
 });
 //----------------bring back footer for all cases except for inputs
