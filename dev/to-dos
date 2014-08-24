@@ -1,19 +1,31 @@
 Phase1
+
+(1) enable user to go back to title page and edit the name
+    -this is the left boundary behavior
+(2) disable results page when in edit mode
+    -this is the right boundary behavior
+    -perhaps user will see a plus sign to indicate she can add more
+(3) make code pop up: "are you sure you want to exit"
+(4) when user holds cardlist button down on choose list for more than 5 seconds, he/she can edit/delete it
+
+
+
 -----------------------------8/20/2014
-(1) make code pop up: "are you sure you want to exit"
-(2) when user holds button down on choose list for more than 5 seconds, he/she can edit it
-(3) when user holds card down, they can edit it
-(4) hide bottom bar when uer is editing text ++
+(1) make code pop up: "are you sure you want to exit"--
+(2) when user holds button down on choose list for more than 5 seconds, he/she can edit it--
+(3) when user holds card down, they can edit it--
+    >>this is not needed since user can click on button
+(4) hide bottom bar when user is editing text ++
 (5) turn on no highlight on button ++
 (6) extend bottom area ++
-(7) disable results page when in edit mode
+(7) disable results page when in edit mode--
 (8) make font for front side a little bit larger in edit mode ++
 (9) remove correct and wrong buttons from edit mode ++
 (10) create inputs for text ++
 (11) make changes to text persistent ++
 (12) add button to remove text field ++
 (13) added save button on edit mode++
-(14) add button to add text field
+(14) add button to add text field ++
 (15) use bootstrap with glyicons, grid systems,form, and input group++
     >>compiled it online @ http://getbootstrap.com/customize
 
