@@ -136,6 +136,13 @@ function app() {
         }   
     }
 
+    self.showPlusButtonForNextArrow = function() {
+        if(self.studyMode() === "edit" && self.flashCardId()+1 === self.numberOfCards) {
+            return true;
+        }
+        return false;
+    }
+
     self.initializeStudyMode = function(id, indexOfCardListInSummary) {
 
 

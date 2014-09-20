@@ -114,16 +114,17 @@
 
 
                 <a class='arrow' style="position:absolute; top:35%; left:0px" href="#" >                  
-                    <span class="no-hilight glyphicon glyphicon-play 
+                    <span class="no-hilight glyphicon glyphicon-play
                     mirror-icon icon-show-as-clicked-blur" style="font-size:60px" 
                     data-bind="click:vm.decreaseId, css:{ isHidden: !vm.displayPreviousButton() || vm.hideArrows() }"
                     ></span>
                 </a>
 
                 <a class='arrow' style="position:absolute;top:35%; right:0px" href="#" >                  
-                    <span class="no-hilight glyphicon glyphicon-play
+                    <span class="no-hilight glyphicon
                     icon-show-as-clicked-blur" style="font-size:60px" 
-                    data-bind="click:vm.increaseId, css:{ isHidden: vm.currentView() === 'result' || vm.hideArrows() }"
+                    data-bind="click:vm.increaseId, css:{ isHidden: vm.currentView() === 'result' || vm.hideArrows(),
+                    'glyphicon-plus': vm.showPlusButtonForNextArrow(), 'glyphicon-play': !vm.showPlusButtonForNextArrow(), }"
                      ></span>
                 </a>
 
