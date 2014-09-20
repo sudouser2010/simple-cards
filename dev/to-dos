@@ -4,7 +4,7 @@ Phase1
     -this is the left boundary behavior
 (2) disable results page when in edit mode
     -this is the right boundary behavior
-    -perhaps user will see a plus sign to indicate she can add more
+    -perhaps user will see a plus sign to indicate she can add more++
 (3) make code pop up: "are you sure you want to exit"
 (4) when user holds cardlist button down on choose list for more than 5 seconds, he/she can edit/delete it
 
