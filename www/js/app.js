@@ -246,6 +246,7 @@ function app() {
 
 
             if (self.flashCardId() === 0) {
+                self.hideCheckers(true);
                 self.hideArrows(true);
                 self.currentView('enter_name');
 
