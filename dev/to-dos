@@ -5,6 +5,8 @@ Phase1
 (2) disable results page when in edit mode
     -this is the right boundary behavior
     -perhaps user will see a plus sign to indicate she can add more++
+        -when user clicks green sign, a process will occur to make append a new card which
+        has predefined information on the front and back of the card.
 (3) make code pop up: "are you sure you want to exit"
 (4) when user holds cardlist button down on choose list for more than 5 seconds, he/she can edit/delete it
 

@@ -213,7 +213,11 @@ function app() {
         self.checkIfShouldShowNextButton();
 
         if(self.displayNextButton()) {
-            if (self.flashCardId() === self.numberOfCards -1) {
+
+            if (self.showPlusButtonForNextArrow()) {
+                self.addNewCard();
+                self.currentView('front');
+            } else if(self.flashCardId() === self.numberOfCards -1) {
                 self.currentView('result');
                 self.hideCheckers(true);
                 self.calculatePercentage();
@@ -436,6 +440,31 @@ function app() {
         back_text       = back_text.concat(self.backText());
         self.backText(back_text);
         self.saveCard()
+    }
+
+    self.addNewCard = function() {
+        /*
+            code does the following:
+            (1) appends new card information to the list_data
+            (2) appends new card information tothe flashCardArray
+            (3) increases the numberOfCards by one
+            (4) set the flashCardId() to numberOfCards-1
+            (5) update localStorage
+        */
+
+        var localNewCardListData = {
+        "front"	    : 	"new topic here",
+	    "back"	    : 	["new text field here"]
+        };
+
+        self.list_data.push(localNewCardListData);
+        self.flashCardArray.push(   new flashCard(self.numberOfCards,
+                                    self.list_data[self.numberOfCards].front,
+                                    self.list_data[self.numberOfCards].back, 0) 
+        );
+        self.numberOfCards++;
+        self.flashCardId(self.numberOfCards-1);
+        localStorage.setObject("list"+self.listId, {"meta_data": self.meta_data, "list_data": self.list_data} );            
     }
 
 }
