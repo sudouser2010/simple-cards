@@ -49,6 +49,7 @@ function app() {
     self.lastActiveElement = "nada";
     self.shouldUpdateCardData = false;
     self.cardListName   = ko.observable('');
+    self.listId         = 'nada';
     //---------------------------------------------initializes app
 
 
@@ -248,6 +249,7 @@ function app() {
             if (self.flashCardId() === 0) {
                 self.hideCheckers(true);
                 self.hideArrows(true);
+                $("#enter_name_input").val(self.meta_data.name);
                 self.currentView('enter_name');
 
             } else if(self.currentView() !== 'result') {
@@ -342,6 +344,7 @@ function app() {
         /* 
             code swaps the local storage data with self.list_data data
             essentially, the code updates this list
+            code updates the summary as well in case any list names changed
          */
 
         //-----save if needed
@@ -349,7 +352,8 @@ function app() {
             self.calculatePercentage();
             localStorage.setObject("list"+self.listId, {"meta_data": self.meta_data, "list_data": self.list_data} );
             self.metaDataForAllLists.sortState = self.summarySortState;
-            localStorage.setObject("meta_data", self.metaDataForAllLists);                
+            localStorage.setObject("meta_data", self.metaDataForAllLists);
+            self.summary( self.metaDataForAllLists["summary"]);
             self.checkerClicked = false;
         }
     }
@@ -407,6 +411,7 @@ function app() {
         self.currentView('enter_name');
         self.studyMode('edit');
         self.cardListName('');
+        self.listId = 'nada';
     }
 
     self.initializeEditMode = function(id, indexOfCardListInSummary) {
@@ -480,6 +485,33 @@ function app() {
         self.numberOfCards++;
         self.flashCardId(self.numberOfCards-1);
         localStorage.setObject("list"+self.listId, {"meta_data": self.meta_data, "list_data": self.list_data} );            
+    }
+
+    self.workOnCardList = function() {
+        if(self.listId === 'nada') {
+            //user is creating a new cardlist
+
+        } else {
+            self.hideCheckers(false);
+            self.hideArrows(false);
+            self.currentView('front');
+            self.meta_data.name = $("#enter_name_input").val();
+
+            //------change the name of the meta data in summary which matches the cardlist id
+            var numberOfCardLists = self.metaDataForAllLists.summary.length;
+            for(var i=0; i<numberOfCardLists; i++) {
+                if(self.metaDataForAllLists.summary[i].id === self.listId) {
+                    self.metaDataForAllLists.summary[i].name = self.meta_data.name;
+                    break;
+                }
+            }
+            //------change the name of the meta data in summary which matches the cardlist id
+            self.summarySortState == "nameReversed"
+            self.sortSummaryByNames();
+            self.checkerClicked = true;
+            self.saveListChanges();
+        }
+
     }
 
 }

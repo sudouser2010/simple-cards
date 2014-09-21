@@ -3,8 +3,10 @@ Phase1
 
 ---------------------------------------9/21/2014
 (0) enable user to create newcardlist
-(1) enable user to go back to title page and edit the name
+(1) enable user to go back to title page and edit the name++
     -this is the left boundary behavior
+    >>I'm keeping track of whether user is on edit name from clicking create cards
+    or from editing a pre-existing card list
 (2) disable results page when in edit mode++
     -this is the right boundary behavior++
     -perhaps user will see a plus sign to indicate she can add more++
