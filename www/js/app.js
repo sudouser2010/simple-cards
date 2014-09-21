@@ -48,6 +48,7 @@ function app() {
     self.studyMode      = ko.observable('study');
     self.lastActiveElement = "nada";
     self.shouldUpdateCardData = false;
+    self.cardListName   = ko.observable('');
     //---------------------------------------------initializes app
 
 
@@ -159,6 +160,7 @@ function app() {
         self.flashCardArray([]);
         self.numberOfCards  = self.list_data.length;
         self.studyMode('study');
+        self.cardListName(self.meta_data.name);
 
 
 
@@ -403,6 +405,7 @@ function app() {
     self.chooseCreate = function() {
         self.currentView('enter_name');
         self.studyMode('edit');
+        self.cardListName('');
     }
 
     self.initializeEditMode = function(id, indexOfCardListInSummary) {
