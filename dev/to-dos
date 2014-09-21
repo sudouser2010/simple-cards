@@ -1,16 +1,18 @@
 Phase1
 
+
+---------------------------------------9/21/2014
+(0) enable user to create newcardlist
 (1) enable user to go back to title page and edit the name
     -this is the left boundary behavior
-(2) disable results page when in edit mode
-    -this is the right boundary behavior
+(2) disable results page when in edit mode++
+    -this is the right boundary behavior++
     -perhaps user will see a plus sign to indicate she can add more++
-        -when user clicks green sign, a process will occur to make append a new card which
-        has predefined information on the front and back of the card.
+        -when user clicks green sign, a process will occur to make append a new card which++
+        has predefined information on the front and back of the card.++
 (3) make code pop up: "are you sure you want to exit"
-(4) when user holds cardlist button down on choose list for more than 5 seconds, he/she can edit/delete it
-
-
+    -this is not needed in phase1
+(4) when user holds cardlist button down on choose list for more than 5 seconds, he/she can delete it
 
 -----------------------------8/20/2014
 (1) make code pop up: "are you sure you want to exit"--
@@ -285,6 +287,7 @@ for more info see: http://www.knockmeout.net/2012/04/knockoutjs-performance-gotc
 ------------------------------------------6/9/2014
 (1) make program so it remembers the grade++
 ------------------------------------------6/7/2014
+* note I'm switching my date scheme. I'll do day/month/year for dates above this point
 (1) make it so when user clicks back or forward, the front side of the card shows ++
         -when I was on the backside of the card and I hit next, I wanted to see the front but I saw the back
         of the next card.
