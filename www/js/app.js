@@ -242,20 +242,27 @@ function app() {
 
         if(self.displayPreviousButton()) {
 
-            if (self.currentView() !== 'result') {
-                self.flashCardId( self.flashCardId() - 1 );                      
+
+            if (self.flashCardId() === 0) {
+                self.hideArrows(true);
+                self.currentView('enter_name');
+
+            } else if(self.currentView() !== 'result') {
+                self.flashCardId( self.flashCardId() - 1 );
+                self.currentView('front');
+
             } else if( self.flashCardId() === self.numberOfCards -1) {
                 self.hideCheckers(false); 
-                self.hideArrows(false); 
+                self.hideArrows(false);
+                self.currentView('front');
             }
-            self.currentView('front');
 
             self.updateCardFrontBackText();
             self.checkIfShouldShowPreviousButton();
             self.checkIfShouldShowNextButton();
             self.updateCardUi();
-
         }
+
     }
 
     /* 
