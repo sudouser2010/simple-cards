@@ -129,7 +129,10 @@ function app() {
     }
 
     self.checkIfShouldShowPreviousButton = function() {
-        if((self.flashCardId() > 0) || (self.numberOfCards===1 && self.currentView() === "result") ) {
+        if( self.flashCardId() > 0 ||
+            (self.numberOfCards===1 && self.currentView() === "result") ||
+            self.studyMode() === 'edit'
+          ) {
             self.displayPreviousButton(true);
         } else {
             self.displayPreviousButton(false);
@@ -363,6 +366,7 @@ function app() {
     }
     self.editCards = function() {
         self.studyMode('edit');
+        self.checkIfShouldShowPreviousButton();
         self.updateCardUi();
     }
 
