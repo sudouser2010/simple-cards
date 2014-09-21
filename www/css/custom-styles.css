@@ -270,6 +270,10 @@ font-size:40px; padding:10px;
     color: green;
 }
 
+.isGreen {
+    color: green;
+}
+
 
 /* Portrait */
 @media screen and (orientation:portrait) {
