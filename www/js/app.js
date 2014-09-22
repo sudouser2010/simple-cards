@@ -174,7 +174,7 @@ function app() {
                     correct = self.list_data[i].correct;
                 }
 
-                self.flashCardArray.push( new flashCard(i, self.list_data[i].front, 
+                self.flashCardArray.push( new flashCard(i, self.list_data[i].front,
                 self.list_data[i].back, correct) );
             }
         // -------------------generateflashCardArrayFromData
@@ -193,6 +193,48 @@ function app() {
         self.saveListChanges();
         self.checkerClicked = false;
 
+    }
+
+
+    self.initializeEditMode = function(id) {
+
+        //get data for list1 from local storage
+        var local_data = localStorage.getObject("list"+id);
+        self.summaryIndex   = id;
+        self.listId         = id;
+        self.flashCardId(0);
+        self.list_data      = local_data.list_data;
+        self.meta_data      = local_data.meta_data;
+        self.flashCardArray([]);
+        self.numberOfCards  = self.list_data.length;
+        self.studyMode('edit');
+        self.cardListName(self.meta_data.name);
+
+        // -------------------generateflashCardArrayFromData
+            var correct;
+            for(var i=0; i<self.numberOfCards; i++) {
+
+                correct = 0;
+                if( typeof self.list_data[i].correct !== "undefined" ) {
+                    correct = self.list_data[i].correct;
+                }
+
+                self.flashCardArray.push( new flashCard(i, self.list_data[i].front, 
+                self.list_data[i].back, correct) );
+            }
+        // -------------------generateflashCardArrayFromData
+
+        // --------------- initialize current flash on card
+        self.frontText( self.flashCardArray()[self.flashCardId()].front );
+        self.backText( self.flashCardArray()[self.flashCardId()].back );
+
+        self.currentView('front');
+
+        self.hideCheckers(false);
+        self.hideArrows(false);
+
+        self.checkIfShouldShowPreviousButton();
+        self.checkIfShouldShowNextButton();
     }
 
     self.toggleSide = function() {
@@ -414,10 +456,6 @@ function app() {
         self.listId = 'nada';
     }
 
-    self.initializeEditMode = function(id, indexOfCardListInSummary) {
-    }
-
-
     self.updateFrontData =  function(front_text) {
         self.frontText(front_text)
         self.flashCardArray()[self.flashCardId()].front = front_text;
@@ -490,8 +528,40 @@ function app() {
     self.workOnCardList = function() {
         if(self.listId === 'nada') {
             //user is creating a new cardlist
+            /*
+                Code does the following:
+                (0) gets the new cardListName
+                (1) gets the new cardlistindex
+                (2) appends the new card list data and meta data to localStorage
+                (3) appends new card meta data to the metaDataForAllLists
+                (4) sets the localStorage overall metadata as metaDataForAllLists
+                (5) sorts the cards
+            */
+
+            var newCardListName     = $("#enter_name_input").val();
+            var numberOfCardLists   = localStorage.length-1;
+            var newCardListIndex    = numberOfCardLists;
+            var meta_data           = {"name":newCardListName, "grade":"0"};
+            var list_data           = [
+                {
+                    "front"	    : 	"new topic here",
+	                "back"	    : 	["new text field here"]
+                }
+            ];
+            var newCardOverAllMetaData  = {"id":newCardListIndex, "name":newCardListName, "grade":"0" };
+
+            localStorage.setObject("list"+newCardListIndex.toString(), {"meta_data": meta_data, "list_data": list_data} );
+            self.metaDataForAllLists.summary.push(newCardOverAllMetaData);
+            localStorage.setObject("meta_data", self.metaDataForAllLists);
+
+            self.summarySortState == "nameReversed"
+            self.sortSummaryByNames();
+
+            self.initializeEditMode(newCardListIndex);
+
 
         } else {
+            //user is editing name a pre-existing cardlist
             self.hideCheckers(false);
             self.hideArrows(false);
             self.currentView('front');
