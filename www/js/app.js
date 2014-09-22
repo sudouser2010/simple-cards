@@ -418,6 +418,7 @@ function app() {
 
     self.studyCards = function() {
         self.studyMode('study');
+        self.checkIfShouldShowPreviousButton();
         self.updateCardUi();
     }
     self.editCards = function() {
