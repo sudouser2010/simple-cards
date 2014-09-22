@@ -288,7 +288,7 @@ function app() {
         if(self.displayPreviousButton()) {
 
 
-            if (self.flashCardId() === 0) {
+            if (self.studyMode() === 'edit' && self.flashCardId() === 0) {
                 self.hideCheckers(true);
                 self.hideArrows(true);
                 $("#enter_name_input").val(self.meta_data.name);
