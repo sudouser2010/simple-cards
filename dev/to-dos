@@ -2,7 +2,7 @@ Phase1
 
 
 ---------------------------------------9/21/2014
-(0) enable user to create newcardlist
+(0) enable user to create newcardlist++
 (1) enable user to go back to title page and edit the name++
     -this is the left boundary behavior
     >>I'm keeping track of whether user is on edit name from clicking create cards
@@ -15,6 +15,9 @@ Phase1
 (3) make code pop up: "are you sure you want to exit"
     -this is not needed in phase1
 (4) when user holds cardlist button down on choose list for more than 5 seconds, he/she can delete it
+    -note I need to alter mechanism keeping track of unique cards.
+    the overall meta data should keep the highest card id present. All new cards will be 1 + the highest card id.
+    this guarantees each card will be unique.
 
 -----------------------------8/20/2014
 (1) make code pop up: "are you sure you want to exit"--
