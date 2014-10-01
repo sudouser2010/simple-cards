@@ -91,6 +91,8 @@ $('.scroll-wrapper, #touch-layer')
    .on('mousedown', function() {
         if (!vm.hideCheckers()) {
             $(this).data("couldBeClickOnCard", true );
+            $(this).data("startx", arguments[0].pageX );
+            $(this).data("starty", arguments[0].pageY );
         } else {
             $(this).data("couldBeClickOnCard", false );
         }
@@ -104,7 +106,17 @@ $('.scroll-wrapper, #touch-layer')
 
     })
    .on('mousemove', function() {
-        $(this).data("couldBeClickOnCard", false );
+        //here so user can scroll without switching sides
+        if($(this).data("startx") !== undefined && $(this).data("starty") !== undefined) {
+            var x           = Math.abs(($(this).data("startx")));
+            var y           = Math.abs(($(this).data("starty")));
+            var distance    = Math.sqrt( x*x + y*y );
+
+            if(distance > 20) {
+                //$(this).data("couldBeClickOnCard", false );  
+            }
+        }
+
     })
    .on('click', function() {
         if(!vm.hideCheckers() && $(this).data("couldBeClickOnCard") ) {

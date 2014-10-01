@@ -207,14 +207,14 @@
                                                     data-bind="click: function() { vm.removeThisTextField($index()) }"
                                                     style="color:red; font-size:30px; padding:4px !important; cursor:pointer"></span> 
                                                     <input class="form-control edit_back" style="height:70px; font-size:25px; padding:0px" 
-                                                    type="text" data-bind="value:$data">
+                                                    type="text" data-bind="value:$data" placeholder="New Text Field Here">
                                                 </div>
                                             </div>
                                             <!-- /ko -->
                                             <!-- ko if: vm.currentView() === "front" -->
                                             <div style="margin-top:15%">
                                                     <input id="edit_front" class="form-control" style="height:70px; font-size:45px; padding:0px 0px 0px 5px"
-                                                    type="text" data-bind="value:vm.frontText()">
+                                                    type="text" data-bind="value:vm.frontText()" placeholder="New Topic Here">
                                             </div>
                                             <!-- /ko -->
                                         <!-- /ko -->

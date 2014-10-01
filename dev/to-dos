@@ -16,8 +16,22 @@ Phase1
     -this is not needed in phase1
 (4) when user holds cardlist button down on choose list for more than 5 seconds, he/she can delete it
     -note I need to alter mechanism keeping track of unique cards.
-    the overall meta data should keep the highest card id present. All new cards will be 1 + the highest card id.
-    this guarantees each card will be unique.
+    -method1
+        -when looping use next to refer to the next item
+    -method2
+        -a list of deleted card ids is kept in meta data,
+        -when a new card is added, the new card takes one of the ids in the deleted data list
+        -this method is good, but it is still possible (inside a loop) to have an index not referring to an id
+    -method3
+        -the overall meta data should keep the highest card id present. All new cards will be 1 + the highest card id.
+        this guarantees each card will be unique.
+        -when looping, i refers to the index of items in array, not the id of the items in array
+        -I like this method the most
+            -note this method is like method1
+(5) make the code which disables mouse clicks when movement occurs more intelligent.
+    -currently, in study mode, the code doesn't switch sides when user touches screen with fingers because code is
+    picking up a small amount of mouse movement
+    -make it work only when the distance is small, use the distance formula
 
 -----------------------------8/20/2014
 (1) make code pop up: "are you sure you want to exit"--
