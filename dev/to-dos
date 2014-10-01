@@ -33,7 +33,7 @@ Phase1
     picking up a small amount of mouse movement
     -make it work only when the distance is small, use the distance formula
 
-(6) fix duplication error on backside of new a card
+(6) fix duplication error on backside of new a card ++
 -----------------------------8/20/2014
 (1) make code pop up: "are you sure you want to exit"--
 (2) when user holds button down on choose list for more than 5 seconds, he/she can edit it--

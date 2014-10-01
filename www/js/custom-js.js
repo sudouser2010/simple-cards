@@ -88,11 +88,15 @@ $( window ).on( "resize", function( event ) {
 
 //-------------so code can tell the difference between user clicking and scrolling on card
 $('.scroll-wrapper, #touch-layer')
+   .data('shouldFollowDistance', false)
    .on('mousedown', function() {
+
+
         if (!vm.hideCheckers()) {
             $(this).data("couldBeClickOnCard", true );
             $(this).data("startx", arguments[0].pageX );
             $(this).data("starty", arguments[0].pageY );
+            $(this).data('shouldFollowDistance',true);
         } else {
             $(this).data("couldBeClickOnCard", false );
         }
@@ -107,15 +111,23 @@ $('.scroll-wrapper, #touch-layer')
     })
    .on('mousemove', function() {
         //here so user can scroll without switching sides
-        if($(this).data("startx") !== undefined && $(this).data("starty") !== undefined) {
-            var x           = Math.abs(($(this).data("startx")));
-            var y           = Math.abs(($(this).data("starty")));
-            var distance    = Math.sqrt( x*x + y*y );
 
-            if(distance > 20) {
-                //$(this).data("couldBeClickOnCard", false );  
-            }
+        if( $(this).data("shouldFollowDistance") === true ) {
+            if($(this).data("startx") !== undefined && $(this).data("starty") !== undefined) {
+                var x           = Math.abs(arguments[0].pageX - ($(this).data("startx")));
+                var y           = Math.abs(arguments[0].pageY - ($(this).data("starty")));
+                var distance    = Math.sqrt( x*x + y*y );
+
+                if(distance > 50) {
+                    /*
+                        if the distance is too large, this is no longer
+                    */
+                    $(this).data('shouldFollowDistance',false);
+                    $(this).data("couldBeClickOnCard", false );  
+                }
+            }        
         }
+
 
     })
    .on('click', function() {
