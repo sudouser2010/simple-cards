@@ -28,11 +28,12 @@ Phase1
         -when looping, i refers to the index of items in array, not the id of the items in array
         -I like this method the most
             -note this method is like method1
-(5) make the code which disables mouse clicks when movement occurs more intelligent.
+(5) make the code which disables mouse clicks when movement occurs more intelligent. ++
     -currently, in study mode, the code doesn't switch sides when user touches screen with fingers because code is
     picking up a small amount of mouse movement
     -make it work only when the distance is small, use the distance formula
 
+(6) fix duplication error on backside of new a card
 -----------------------------8/20/2014
 (1) make code pop up: "are you sure you want to exit"--
 (2) when user holds button down on choose list for more than 5 seconds, he/she can edit it--
