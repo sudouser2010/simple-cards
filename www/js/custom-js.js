@@ -177,5 +177,17 @@ function removeItemFromArray(array, index_of_item_to_remove) {
 }
 //-----------------------removing an item from array
 
+//--------------------------so user can delete a card or card list
+    $('.deletable')
+    .on('mousedown', function() {
+        
+        clearTimeout(this.downTimer);
+        this.downTimer = setTimeout(function() {
+            alert('this item can be deleted now');
+        }, 2000);
 
+    }).on('mouseup', function() {
+        clearTimeout(this.downTimer);
+    });
+//--------------------------so user can delete a card or card list
 
