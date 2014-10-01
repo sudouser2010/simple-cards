@@ -495,10 +495,17 @@ function app() {
     }
 
     self.addNewTextField = function() {
+        //saves current state of cards
+        self.saveCard();
+
+        //----------------adds a new blank card to cards
         var back_text   = new Array("");
         back_text       = back_text.concat(self.backText());
         self.backText(back_text);
-        self.saveCard()
+        //----------------adds a new blank card to cards
+
+        //saves new state of cards
+        self.saveCard();
     }
 
     self.addNewCard = function() {
@@ -512,8 +519,8 @@ function app() {
         */
 
         var localNewCardListData = {
-        "front"	    : 	"new topic here",
-	    "back"	    : 	["new text field here"]
+        "front"	    : 	"",
+	    "back"	    : 	[""]
         };
 
         self.list_data.push(localNewCardListData);
@@ -545,8 +552,8 @@ function app() {
             var meta_data           = {"name":newCardListName, "grade":"0"};
             var list_data           = [
                 {
-                    "front"	    : 	"new topic here",
-	                "back"	    : 	["new text field here"]
+                    "front"	    : 	"",
+	                "back"	    : 	[""]
                 }
             ];
             var newCardOverAllMetaData  = {"id":newCardListIndex, "name":newCardListName, "grade":"0" };
