@@ -178,16 +178,26 @@ function removeItemFromArray(array, index_of_item_to_remove) {
 //-----------------------removing an item from array
 
 //--------------------------so user can delete a card or card list
-    $('.deletable')
-    .on('mousedown', function() {
-        
-        clearTimeout(this.downTimer);
-        this.downTimer = setTimeout(function() {
-            alert('this item can be deleted now');
-        }, 2000);
+function showModal(self) {
 
-    }).on('mouseup', function() {
-        clearTimeout(this.downTimer);
-    });
+    self.data('isMouseDown', true);
+//note the data doesn't exist
+    self.downTimer = setTimeout(function() {
+        clearTimeout(self.downTimer);
+alert('s');
+        if(self.data('isMouseDown', true)) {
+            self.data('isMouseDown', false);
+            alert('this item can be deleted now');
+        }    
+
+        
+    }, 3000);
+}
 //--------------------------so user can delete a card or card list
+
+
+
+
+
+
 
