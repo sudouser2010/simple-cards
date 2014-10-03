@@ -193,6 +193,11 @@ alert('s');
         
     }, 3000);
 }
+
+$('.scroller').on("mousedown", ".deletable", function () {
+    alert( "this item can be deleted now");
+});
+
 //--------------------------so user can delete a card or card list
 
 
