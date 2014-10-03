@@ -65,6 +65,7 @@ Phase1
 (2) make code pop up: "are you sure you want to exit"--
 (3) when user holds button down on choose list for more than 5 seconds, he/she can edit it--
 (4) when user holds card down, they can edit it--
+        >> I created a edit button instead
 (5) move title text down++
 (6) remove front and back++
     -I think it might be a little distracting

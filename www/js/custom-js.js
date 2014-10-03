@@ -178,26 +178,44 @@ function removeItemFromArray(array, index_of_item_to_remove) {
 //-----------------------removing an item from array
 
 //--------------------------so user can delete a card or card list
-function showModal(self) {
-
-    self.data('isMouseDown', true);
-//note the data doesn't exist
-    self.downTimer = setTimeout(function() {
-        clearTimeout(self.downTimer);
-alert('s');
-        if(self.data('isMouseDown', true)) {
-            self.data('isMouseDown', false);
-            alert('this item can be deleted now');
-        }    
-
-        
-    }, 3000);
-}
 
 $('.scroller').on("mousedown", ".deletable", function () {
-    alert( "this item can be deleted now");
+    
+    //-----------------------------initialization
+    $(self).data("startx", arguments[0].pageX );
+    $(self).data("starty", arguments[0].pageY );
+    $(self).data('isARealMouseDown',true);
+    //-----------------------------initialization
+
+    self.downTimer = setTimeout(function() {
+
+        if ($(self).data('isARealMouseDown') === true) {
+            alert('this is a real mouse down');  
+        }
+
+    }, 3000);
 });
 
+$('.scroller').on("mousemove", ".deletable", function () {
+
+    if( $(self).data("isARealMouseDown") !== undefined && 
+        $(self).data("isARealMouseDown") === true ) {
+
+        var x           = Math.abs(arguments[0].pageX - ($(self).data("startx")));
+        var y           = Math.abs(arguments[0].pageY - ($(self).data("starty")));
+        var distance    = Math.sqrt( x*x + y*y );
+
+        if(distance > 50) {
+            /*
+                if the distance is too large (larger than some arbitary threshold),
+                then this is no longer a real mouse down. It becomes a mouse scroll
+            */
+            $(self).data('isARealMouseDown',false);  
+        }
+                
+    }
+
+});
 //--------------------------so user can delete a card or card list
 
 
