@@ -194,9 +194,8 @@ $('.scroller').on("mousedown", ".deletable", function () {
         }
 
     }, 3000);
-});
 
-$('.scroller').on("mousemove", ".deletable", function () {
+}).on("mousemove", ".deletable", function () {
 
     if( $(self).data("isARealMouseDown") !== undefined && 
         $(self).data("isARealMouseDown") === true ) {
@@ -215,6 +214,8 @@ $('.scroller').on("mousemove", ".deletable", function () {
                 
     }
 
+}).on("click", ".deletable", function () {
+    $(self).data('isARealMouseDown',false); 
 });
 //--------------------------so user can delete a card or card list
 
