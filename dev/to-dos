@@ -14,7 +14,7 @@ Phase1
         has predefined information on the front and back of the card.++
 (3) make code pop up: "are you sure you want to exit"
     -this is not needed in phase1
-(4) when user holds cardlist button down on choose list for more than 5 seconds, he/she can delete it
+(4) when user holds cardlist button down on choose list for more than 3 seconds, he/she can delete it
     -note I need to alter mechanism keeping track of unique cards.
     -method1
         -when looping use next to refer to the next item

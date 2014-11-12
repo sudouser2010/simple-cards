@@ -11,14 +11,14 @@ var endEvents = endEvent+" "+leaveEvent;
 
 //----------------------------------------this is blurring selection
 $(".icon-show-as-clicked-blur").on(startEvent, function(){
-    $(this).addClass("jicon-is-selected-blur"); 
+    $(this).addClass("jicon-is-selected-blur");
 });
 
 $(".icon-show-as-clicked-blur").on( endEvents , function(){
     var element = this;
     setTimeout(function () {
-        $(element).removeClass("jicon-is-selected-blur");  
-        $(element).addClass("jicon-is-deselected-blur");          
+        $(element).removeClass("jicon-is-selected-blur");
+        $(element).addClass("jicon-is-deselected-blur");
     }, 400);
 });
 //----------------------------------------this is blurring selection
@@ -26,13 +26,13 @@ $(".icon-show-as-clicked-blur").on( endEvents , function(){
 
 //----------------------------this is non blurring selection
 $(".button-show-as-clicked").on(startEvent, function(){
-    $(this).addClass("jicon-is-selected"); 
+    $(this).addClass("jicon-is-selected");
 });
 
 $(".button-show-as-clicked").on( endEvents , function(){
     var element = this;
     setTimeout(function () {
-        $(element).removeClass("jicon-is-selected");           
+        $(element).removeClass("jicon-is-selected");
     }, 400);
 });
 //----------------------------this is non blurring selection
@@ -75,7 +75,7 @@ var refreshIntervalId = setInterval(checkIfViewModelIsLoaded, 100);
 //-------------------------------------does stuff after orientation change
 
 $( window ).on( "resize", function( event ) {
-    
+
     // updates body when ever user rotates device
     $(".arrow").hide();
     setBodyHeight();
@@ -123,9 +123,9 @@ $('.scroll-wrapper, #touch-layer')
                         if the distance is too large, this is no longer
                     */
                     $(this).data('shouldFollowDistance',false);
-                    $(this).data("couldBeClickOnCard", false );  
+                    $(this).data("couldBeClickOnCard", false );
                 }
-            }        
+            }
         }
 
 
@@ -180,43 +180,56 @@ function removeItemFromArray(array, index_of_item_to_remove) {
 //--------------------------so user can delete a card or card list
 
 $('.scroller').on("mousedown", ".deletable", function () {
-    
+
+	//self refers to the window
     //-----------------------------initialization
     $(self).data("startx", arguments[0].pageX );
     $(self).data("starty", arguments[0].pageY );
     $(self).data('isARealMouseDown',true);
     //-----------------------------initialization
+    
+	self.downTimer = setTimeout(function() {
 
-    self.downTimer = setTimeout(function() {
+	if ($(self).data('isARealMouseDown') === true) {
+		/*
+		 * 	when here, user held down scroller for
+		 *	some period of time without scrolling
+		 */
+		alert('You held down scroller for more than 3 seconds');
+	}
 
-        if ($(self).data('isARealMouseDown') === true) {
-            alert('this is a real mouse down');  
-        }
-
-    }, 3000);
+	}, 3000);
 
 }).on("mousemove", ".deletable", function () {
 
-    if( $(self).data("isARealMouseDown") !== undefined && 
+    if( $(self).data("isARealMouseDown") !== undefined &&
         $(self).data("isARealMouseDown") === true ) {
 
         var x           = Math.abs(arguments[0].pageX - ($(self).data("startx")));
         var y           = Math.abs(arguments[0].pageY - ($(self).data("starty")));
         var distance    = Math.sqrt( x*x + y*y );
 
-        if(distance > 50) {
+        if(distance > 10) {
             /*
                 if the distance is too large (larger than some arbitary threshold),
                 then this is no longer a real mouse down. It becomes a mouse scroll
             */
-            $(self).data('isARealMouseDown',false);  
+            $(self).data('isARealMouseDown',false);
         }
-                
+
     }
 
 }).on("click", ".deletable", function () {
-    $(self).data('isARealMouseDown',false); 
+    $(self).data('isARealMouseDown',false);
 });
+
+function goToSpecificCardList(data, index, event) {
+	
+	if ($(window).data("isARealMouseDown")) {
+		vm.goToSpecificCardList(data, index, event);
+	}
+	
+}
 //--------------------------so user can delete a card or card list
 
 
