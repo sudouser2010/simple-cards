@@ -181,16 +181,15 @@ function removeItemFromArray(array, index_of_item_to_remove) {
 
 $('.scroller').on("mousedown", ".deletable", function () {
 
-	//self refers to the window
     //-----------------------------initialization
-    $(self).data("startx", arguments[0].pageX );
-    $(self).data("starty", arguments[0].pageY );
-    $(self).data('isARealMouseDown',true);
+    $(window).data("startx", arguments[0].pageX );
+    $(window).data("starty", arguments[0].pageY );
+    $(window).data('isARealMouseDown',true);
     //-----------------------------initialization
     
-	self.downTimer = setTimeout(function() {
+	window.downTimer = setTimeout(function() {
 
-	if ($(self).data('isARealMouseDown') === true) {
+	if ($(window).data('isARealMouseDown') === true) {
 		/*
 		 * 	when here, user held down scroller for
 		 *	some period of time without scrolling
@@ -202,11 +201,11 @@ $('.scroller').on("mousedown", ".deletable", function () {
 
 }).on("mousemove", ".deletable", function () {
 
-    if( $(self).data("isARealMouseDown") !== undefined &&
-        $(self).data("isARealMouseDown") === true ) {
+    if( $(window).data("isARealMouseDown") !== undefined &&
+        $(window).data("isARealMouseDown") === true ) {
 
-        var x           = Math.abs(arguments[0].pageX - ($(self).data("startx")));
-        var y           = Math.abs(arguments[0].pageY - ($(self).data("starty")));
+        var x           = Math.abs(arguments[0].pageX - ($(window).data("startx")));
+        var y           = Math.abs(arguments[0].pageY - ($(window).data("starty")));
         var distance    = Math.sqrt( x*x + y*y );
 
         if(distance > 10) {
@@ -214,13 +213,13 @@ $('.scroller').on("mousedown", ".deletable", function () {
                 if the distance is too large (larger than some arbitary threshold),
                 then this is no longer a real mouse down. It becomes a mouse scroll
             */
-            $(self).data('isARealMouseDown',false);
+            $(window).data('isARealMouseDown',false);
         }
 
     }
 
 }).on("click", ".deletable", function () {
-    $(self).data('isARealMouseDown',false);
+    $(window).data('isARealMouseDown',false);
 });
 
 function goToSpecificCardList(data, index, event) {
