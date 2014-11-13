@@ -88,6 +88,19 @@
             <!-- Body-Header end -->
 
 
+			<div id="delete-card-list-context-menu" class="absolute-and-centered" style="text-align:center">			
+				<h2>
+					Delete Card List ?
+				</h2>
+				<div class="delete-button">
+					No
+				</div>
+				<div class="delete-button">
+					Yes
+				</div>
+				
+			</div>
+			<!-- delete-card-list-context-menu -->
 
          
             <!-- Body-Content start -->
@@ -109,9 +122,7 @@
 
                     </div>
                 </div>
-                <!--page title -->
-                
-
+                <!--page title -->                
 
                 <a class='arrow' style="position:absolute; top:35%; left:0px" href="#" >                  
                     <span class="no-hilight glyphicon glyphicon-play
@@ -120,6 +131,7 @@
                     isGreen: vm.studyMode() === 'edit' && vm.flashCardId() === 0}"
                     ></span>
                 </a>
+				<!-- arrow -->
 
                 <a class='arrow' style="position:absolute;top:35%; right:0px" href="#" >                  
                     <span class="no-hilight glyphicon
@@ -128,7 +140,8 @@
                     'glyphicon-plus': vm.showPlusButtonForNextArrow(), 'glyphicon-play': !vm.showPlusButtonForNextArrow(), }"
                      ></span>
                 </a>
-
+				<!-- arrow -->
+				
                 <div class="container body-container">
                     <div class="row"> 
                                     
@@ -284,10 +297,11 @@
                             </div>
                             <!-- For non-scrollable content in body -->
 	                    </div> 
+						<!-- col-xs-10 col-xs-offset-1 -->
 
                     </div> 
                 </div>
-
+				<!-- container body-container -->
 
             </div>
 	        <!-- Body-Content end -->
@@ -337,6 +351,7 @@
 		    <!-- Footer end -->
 
         </div>
+        <!-- page-container -->
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~Page-Container end -->
 
 		<script src="js/jquery.min.js"></script>

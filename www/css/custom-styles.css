@@ -274,6 +274,32 @@ font-size:40px; padding:10px;
     color: green;
 }
 
+.absolute-and-centered{
+	position:absolute;
+    left:0;
+    right:0;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+#delete-card-list-context-menu{
+	background-color: grey;
+	border-radius:10px;
+	padding:30px 40px;
+	z-index: 21;
+    width:300px;
+    top:30%;
+}
+
+.delete-button{
+
+	padding: 10px 10px;
+	background-color:blue;
+	margin-bottom: 10px;
+	border-radius:5px;
+	cursor:pointer;
+
+}
 
 /* Portrait */
 @media screen and (orientation:portrait) {
