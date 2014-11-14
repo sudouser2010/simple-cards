@@ -194,10 +194,10 @@ $('.scroller').on("mousedown", ".deletable", function () {
 		 * 	when here, user held down scroller for
 		 *	some period of time without scrolling
 		 */
-		alert('You held down scroller for more than 3 seconds');
+		 vm.hideAllModals(false);
 	}
 
-	}, 3000);
+	}, 2000);
 
 }).on("mousemove", ".deletable", function () {
 

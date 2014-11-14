@@ -50,6 +50,7 @@ function app() {
     self.shouldUpdateCardData = false;
     self.cardListName   = ko.observable('');
     self.listId         = 'nada';
+    self.hideAllModals	= ko.observable(true);
     //---------------------------------------------initializes app
 
 
@@ -404,6 +405,7 @@ function app() {
         self.currentView('choose');
         self.hideCheckers(true);
         self.hideArrows(true);
+        self.hideAllModals(true);
         self.updateCardUi();
         self.saveListChanges();
     }
@@ -591,6 +593,11 @@ function app() {
         }
 
     }
+    
+    self.deleteCardList = function() {
+		alert('card list deleted !');
+		self.hideAllModals(true);
+	}
 
 }
 //------------------------creates an instance of the app called vm and applies bindings to it

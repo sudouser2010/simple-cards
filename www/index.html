@@ -88,20 +88,27 @@
             <!-- Body-Header end -->
 
 
-			<div id="delete-card-list-context-menu" class="absolute-and-centered" style="text-align:center">			
+			<div id="delete-card-list-context-menu" 
+			class="absolute-and-centered" style="text-align:center"
+			data-bind="css:{ isHidden: vm.currentView() !=='choose' || vm.hideAllModals() }"
+			>			
 				<h2>
 					Delete Card List ?
 				</h2>
-				<div class="delete-button">
+				<div class="delete-button" data-bind="click:vm.hideAllModals(true)">
 					No
 				</div>
-				<div class="delete-button">
+				<div class="delete-button" data-bind="click:vm.deleteCardList">
 					Yes
 				</div>
 				
 			</div>
 			<!-- delete-card-list-context-menu -->
 
+			<div id="modal-shadow"
+				data-bind="css:{ isHidden: vm.hideAllModals() }"
+			>
+			</div>
          
             <!-- Body-Content start -->
             <div id="body-content" style="position:absolute; margin-top:50px; width:100%;">
