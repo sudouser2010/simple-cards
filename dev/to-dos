@@ -12,7 +12,7 @@ Phase1
     -perhaps user will see a plus sign to indicate she can add more++
         -when user clicks green sign, a process will occur to make append a new card which++
         has predefined information on the front and back of the card.++
-(3) make code pop up: "are you sure you want to exit"
+(3) make code pop up: "are you sure you want to exit"--
     -this is not needed in phase1
 (4) when user holds cardlist button down on choose list for more than 3 seconds, he/she can delete it
     -note I need to alter mechanism keeping track of unique cards.
@@ -32,6 +32,8 @@ Phase1
     - to assign the callback to an element:
         -write it inline
         -give the element a class and allow it to bubble up
+
+    -remove the bug where user can move scroller even if modal is up
 
 (5) make the code which disables mouse clicks when movement occurs more intelligent. ++
     -currently, in study mode, the code doesn't switch sides when user touches screen with fingers because code is

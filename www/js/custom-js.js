@@ -195,6 +195,9 @@ $('.scroller').on("mousedown", ".deletable", function () {
 		 *	some period of time without scrolling
 		 */
 		 vm.hideAllModals(false);
+		 
+		 //fixes the scrolling bug
+		 myScroll.disable();
 	}
 
 	}, 2000);
