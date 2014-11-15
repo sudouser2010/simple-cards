@@ -50,7 +50,7 @@ function app() {
     self.shouldUpdateCardData = false;
     self.cardListName   = ko.observable('');
     self.listId         = 'nada';
-    self.allModalsAreHidden	= ko.observable(true);
+    self.hideAllModals	= ko.observable(true);
     //---------------------------------------------initializes app
 
 
@@ -401,19 +401,11 @@ function app() {
         }
     }
 
-	self.hideAllModals = function() {
-		allModalsAreHidden(true);
-	}
-	
-	self.showAllModals = function() {
-		allModalsAreHidden(false);
-	}
-
     self.chooseList = function() {
         self.currentView('choose');
         self.hideCheckers(true);
         self.hideArrows(true);
-        self.hideAllModals();
+        self.hideAllModals(true);
         self.updateCardUi();
         self.saveListChanges();
     }
@@ -604,7 +596,7 @@ function app() {
     
     self.deleteCardList = function() {
 		alert('card list deleted !');
-		self.hideAllModals();
+		self.hideAllModals(true);
 	}
 
 }

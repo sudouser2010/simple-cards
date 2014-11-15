@@ -1,0 +1,107 @@
+diff --git a/dev/to-dos b/dev/to-dos
+index eb7bd03..67a9dda 100644
+--- a/dev/to-dos
++++ b/dev/to-dos
+@@ -12,7 +12,7 @@ Phase1
+     -perhaps user will see a plus sign to indicate she can add more++
+         -when user clicks green sign, a process will occur to make append a new card which++
+         has predefined information on the front and back of the card.++
+-(3) make code pop up: "are you sure you want to exit"--
++(3) make code pop up: "are you sure you want to exit"
+     -this is not needed in phase1
+ (4) when user holds cardlist button down on choose list for more than 3 seconds, he/she can delete it
+     -note I need to alter mechanism keeping track of unique cards.
+@@ -33,8 +33,6 @@ Phase1
+         -write it inline
+         -give the element a class and allow it to bubble up
+ 
+-    -remove the bug where user can move scroller even if modal is up
+-
+ (5) make the code which disables mouse clicks when movement occurs more intelligent. ++
+     -currently, in study mode, the code doesn't switch sides when user touches screen with fingers because code is
+     picking up a small amount of mouse movement
+diff --git a/www/index.html b/www/index.html
+index dbd113b..2e5e105 100644
+--- a/www/index.html
++++ b/www/index.html
+@@ -90,12 +90,12 @@
+ 
+ 			<div id="delete-card-list-context-menu" 
+ 			class="absolute-and-centered" style="text-align:center"
+-			data-bind="css:{ isHidden: vm.currentView() !=='choose' || vm.allModalsAreHidden() }"
++			data-bind="css:{ isHidden: vm.currentView() !=='choose' || vm.hideAllModals() }"
+ 			>			
+ 				<h2>
+ 					Delete Card List ?
+ 				</h2>
+-				<div class="delete-button" data-bind="click:vm.hideAllModals()">
++				<div class="delete-button" data-bind="click:vm.hideAllModals(true)">
+ 					No
+ 				</div>
+ 				<div class="delete-button" data-bind="click:vm.deleteCardList">
+@@ -106,7 +106,7 @@
+ 			<!-- delete-card-list-context-menu -->
+ 
+ 			<div id="modal-shadow"
+-				data-bind="css:{ isHidden: vm.allModalsAreHidden() }"
++				data-bind="css:{ isHidden: vm.hideAllModals() }"
+ 			>
+ 			</div>
+          
+diff --git a/www/js/app.js b/www/js/app.js
+index 7e94950..9b27f79 100644
+--- a/www/js/app.js
++++ b/www/js/app.js
+@@ -50,7 +50,7 @@ function app() {
+     self.shouldUpdateCardData = false;
+     self.cardListName   = ko.observable('');
+     self.listId         = 'nada';
+-    self.allModalsAreHidden	= ko.observable(true);
++    self.hideAllModals	= ko.observable(true);
+     //---------------------------------------------initializes app
+ 
+ 
+@@ -401,19 +401,11 @@ function app() {
+         }
+     }
+ 
+-	self.hideAllModals = function() {
+-		allModalsAreHidden(true);
+-	}
+-	
+-	self.showAllModals = function() {
+-		allModalsAreHidden(false);
+-	}
+-
+     self.chooseList = function() {
+         self.currentView('choose');
+         self.hideCheckers(true);
+         self.hideArrows(true);
+-        self.hideAllModals();
++        self.hideAllModals(true);
+         self.updateCardUi();
+         self.saveListChanges();
+     }
+@@ -604,7 +596,7 @@ function app() {
+     
+     self.deleteCardList = function() {
+ 		alert('card list deleted !');
+-		self.hideAllModals();
++		self.hideAllModals(true);
+ 	}
+ 
+ }
+diff --git a/www/js/custom-js.js b/www/js/custom-js.js
+index e1e347d..aa072e8 100644
+--- a/www/js/custom-js.js
++++ b/www/js/custom-js.js
+@@ -195,9 +195,6 @@ $('.scroller').on("mousedown", ".deletable", function () {
+ 		 *	some period of time without scrolling
+ 		 */
+ 		 vm.hideAllModals(false);
+-		 
+-		 //fixes the scrolling bug
+-		 myScroll.disable();
+ 	}
+ 
+ 	}, 2000);
