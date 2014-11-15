@@ -79,7 +79,7 @@ $( window ).on( "resize", function( event ) {
     // updates body when ever user rotates device
     $(".arrow").hide();
     setBodyHeight();
-    vm.updateCardUi();
+    vm.flashCards.updateCardUi();
     $(".arrow").show();
 
 });
@@ -92,7 +92,7 @@ $('.scroll-wrapper, #touch-layer')
    .on('mousedown', function() {
 
 
-        if (!vm.hideCheckers()) {
+        if (!vm.flashCards.hideCheckers()) {
             $(this).data("couldBeClickOnCard", true );
             $(this).data("startx", arguments[0].pageX );
             $(this).data("starty", arguments[0].pageY );
@@ -104,8 +104,8 @@ $('.scroll-wrapper, #touch-layer')
         //hides footer if click is on input and tells app, data is updatable
         if(arguments[0].target.tagName === "INPUT") {
             $("#body-footer").addClass("isDisabled");
-            vm.lastActiveElement = "INPUT";
-            vm.shouldUpdateCardData = true;
+            vm.flashCards.lastActiveElement = "INPUT";
+            vm.flashCards.shouldUpdateCardData = true;
         }
 
     })
@@ -131,16 +131,16 @@ $('.scroll-wrapper, #touch-layer')
 
     })
    .on('click', function() {
-        if(!vm.hideCheckers() && $(this).data("couldBeClickOnCard") ) {
+        if(!vm.flashCards.hideCheckers() && $(this).data("couldBeClickOnCard") ) {
             //toogle side (maybe) b/c user is clicking on card, not scrolling
 
-            if (vm.lastActiveElement === "INPUT" && arguments[0].target.tagName !== "INPUT" ) {
+            if (vm.flashCards.lastActiveElement === "INPUT" && arguments[0].target.tagName !== "INPUT" ) {
                 //if the input is focused and click is not on input, then only remove the focus (and don't toggle side)
                 $('input').blur();
-                vm.lastActiveElement= arguments[0].target.tagName;
+                vm.flashCards.lastActiveElement= arguments[0].target.tagName;
             } else if (arguments[0].target.tagName !== "INPUT" && arguments[0].target.classList[0]!=="disable-touch-click") {
                 //if this click is not on an input, then toggle side
-                vm.toggleSide();
+                vm.flashCards.toggleSide();
             }
         }
     });
@@ -155,8 +155,8 @@ $("*").on("click", function(){
     if (arguments[0].target.tagName !== "INPUT") {
         $("#body-footer").removeClass("isDisabled");
 
-        if(vm.shouldUpdateCardData) {
-            vm.saveCard();
+        if(vm.flashCards.shouldUpdateCardData) {
+            vm.flashCards.saveCard();
         }
     }
 });
@@ -194,7 +194,7 @@ $('.scroller').on("mousedown", ".deletable", function () {
 		 * 	when here, user held down scroller for
 		 *	some period of time without scrolling
 		 */
-		 vm.hideAllModals(false);
+		 vm.showModals();
 	}
 
 	}, 2000);
@@ -225,7 +225,7 @@ $('.scroller').on("mousedown", ".deletable", function () {
 function goToSpecificCardList(data, index, event) {
 	
 	if ($(window).data("isARealMouseDown")) {
-		vm.goToSpecificCardList(data, index, event);
+		vm.flashCards.goToSpecificCardList(data, index, event);
 	}
 	
 }

@@ -36,7 +36,7 @@
     </script>
 
     <body onload="loaded()" style="position:absolute"
-    data-bind="css:{ flashcard_background: vm.currentView() ==='front' }"
+    data-bind="css:{ flashcard_background: vm.flashCards.currentView() ==='front' }"
     >
 
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~Page-Container start -->
@@ -45,7 +45,7 @@
 
             <!-- Body-Header start -->
             <div 
-            id="body-header" data-bind="css:{ isHidden: vm.currentView() ==='home' }"
+            id="body-header" data-bind="css:{ isHidden: vm.flashCards.currentView() ==='home' }"
             style="position:absolute; top:0%; width:100%; background-color: red; z-index:21;">
  
                 <div class="container-fluid container-xs-height">
@@ -53,31 +53,31 @@
 
 
                         <a href="#" class="col-xs-1 col-xs-height col-middle j-icon"
-                        data-bind="click: vm.homeScreen, css:{ isHidden: vm.currentView() =='home'}">                
+                        data-bind="click: vm.flashCards.homeScreen, css:{ isHidden: vm.flashCards.currentView() =='home'}">                
                             <span class="fa fa-home icon-show-as-clicked-blur no-hilight adjust-menu-padding" style="font-size:50px">
                             </span>
                         </a>
                         <a href="#" class="col-xs-1 col-xs-height col-middle j-icon adjust-menu-padding" style="padding-right:1px"
-                        data-bind="click: vm.chooseList, css:{ isHidden: vm.currentView() =='home'}">                
+                        data-bind="click: vm.flashCards.chooseList, css:{ isHidden: vm.flashCards.currentView() =='home'}">                
                             <span class="fa fa-file-text icon-show-as-clicked-blur no-hilight" style="font-size:40px"></span>
                         </a>
 
 
                         <div class="col-xs-7" ></div>
                         <div href="#" class="col-xs-1 col-xs-height col-middle j-icon adjust-menu-padding"
-                        data-bind="css:{ isDisabled: vm.currentView() === 'result' || vm.hideArrows() }">                
+                        data-bind="css:{ isDisabled: vm.flashCards.currentView() === 'result' || vm.flashCards.hideArrows() }">                
                             <span class="fa fa-play study_edit no-hilight" style="font-size:45px"
-                            data-bind="click: vm.studyCards, css:{ study_edit_selected: vm.studyMode() === 'study' }"
+                            data-bind="click: vm.flashCards.studyCards, css:{ study_edit_selected: vm.flashCards.studyMode() === 'study' }"
                             ></span>
                         </div>
                         <div href="#" class="col-xs-1 col-xs-height col-middle j-icon adjust-menu-padding"
-                        data-bind="css:{ isDisabled: vm.currentView() === 'result' || vm.hideArrows() }">
+                        data-bind="css:{ isDisabled: vm.flashCards.currentView() === 'result' || vm.flashCards.hideArrows() }">
                             <span class="fa fa-edit study_edit no-hilight" style="font-size:50px"
-                            data-bind="click: vm.editCards, css:{ study_edit_selected: vm.studyMode() === 'edit' }"
+                            data-bind="click: vm.flashCards.editCards, css:{ study_edit_selected: vm.flashCards.studyMode() === 'edit' }"
                             ></span>
                         </div>
                         <a href="#" class="col-xs-1 col-xs-height col-middle j-icon adjust-menu-padding"
-                        data-bind="css:{ isDisabled: vm.currentView() === 'result' || vm.hideArrows() }">            
+                        data-bind="css:{ isDisabled: vm.flashCards.currentView() === 'result' || vm.flashCards.hideArrows() }">            
                             <span class="fa fa-cog icon-show-as-clicked-blur no-hilight" style="font-size:40px"></span>
                         </a>
                   
@@ -90,12 +90,12 @@
 
 			<div id="delete-card-list-context-menu" 
 			class="absolute-and-centered" style="text-align:center"
-			data-bind="css:{ isHidden: vm.currentView() !=='choose' || vm.hideAllModals() }"
+			data-bind="css:{ isHidden: vm.flashCards.currentView() !=='choose' || vm.hideAllModals() }"
 			>			
 				<h2>
 					Delete Card List ?
 				</h2>
-				<div class="delete-button" data-bind="click:vm.hideAllModals(true)">
+				<div class="delete-button" data-bind="click:vm.hideAllModals">
 					No
 				</div>
 				<div class="delete-button" data-bind="click:vm.deleteCardList">
@@ -112,7 +112,7 @@
          
             <!-- Body-Content start -->
             <div id="body-content" style="position:absolute; margin-top:50px; width:100%;">
-                <div id="touch-layer" data-bind="css:{ isDisabled: vm.hideCheckers() }" 
+                <div id="touch-layer" data-bind="css:{ isDisabled: vm.flashCards.hideCheckers() }" 
                 style="z-index:19; position: absolute; height:130%; width:100%"></div>
 
 
@@ -122,9 +122,9 @@
 
                         <div class="col-xs-12 col-xs-height col-middle j-icon" style= "">
                             <div class="" style="font-size:40px"
-                            data-bind="css:{ isHidden: vm.currentView() !=='result' }">Results</div>
+                            data-bind="css:{ isHidden: vm.flashCards.currentView() !=='result' }">Results</div>
                             <div id="select_list"
-                            data-bind="css:{ isHidden: vm.currentView() !=='choose' }">Select List</div>
+                            data-bind="css:{ isHidden: vm.flashCards.currentView() !=='choose' }">Select List</div>
                         </div>
 
                     </div>
@@ -134,8 +134,8 @@
                 <a class='arrow' style="position:absolute; top:35%; left:0px" href="#" >                  
                     <span class="no-hilight glyphicon glyphicon-play
                     mirror-icon icon-show-as-clicked-blur" style="font-size:60px" 
-                    data-bind="click:vm.decreaseId, css:{ isHidden: !vm.displayPreviousButton() || vm.hideArrows(),
-                    isGreen: vm.studyMode() === 'edit' && vm.flashCardId() === 0}"
+                    data-bind="click:vm.flashCards.decreaseId, css:{ isHidden: !vm.flashCards.displayPreviousButton() || vm.flashCards.hideArrows(),
+                    isGreen: vm.flashCards.studyMode() === 'edit' && vm.flashCards.flashCardId() === 0}"
                     ></span>
                 </a>
 				<!-- arrow -->
@@ -143,8 +143,8 @@
                 <a class='arrow' style="position:absolute;top:35%; right:0px" href="#" >                  
                     <span class="no-hilight glyphicon
                     icon-show-as-clicked-blur" style="font-size:60px" 
-                    data-bind="click:vm.increaseId, css:{ isHidden: vm.currentView() === 'result' || vm.hideArrows(),
-                    'glyphicon-plus': vm.showPlusButtonForNextArrow(), 'glyphicon-play': !vm.showPlusButtonForNextArrow(), }"
+                    data-bind="click:vm.flashCards.increaseId, css:{ isHidden: vm.flashCards.currentView() === 'result' || vm.flashCards.hideArrows(),
+                    'glyphicon-plus': vm.flashCards.showPlusButtonForNextArrow(), 'glyphicon-play': !vm.flashCards.showPlusButtonForNextArrow(), }"
                      ></span>
                 </a>
 				<!-- arrow -->
@@ -154,16 +154,16 @@
                                     
                         <!-- For Home Screen -->
                         <div 
-                        data-bind="css:{ isHidden: vm.currentView() !=='home' }"
+                        data-bind="css:{ isHidden: vm.flashCards.currentView() !=='home' }"
                         class="col-xs-10 col-xs-offset-1" style="height:100%">
 
                             <button class="col-xs-12 homeScreenButtons light" style="margin-top:5%;"
-                            data-bind="click:vm.chooseCreate"
+                            data-bind="click:vm.flashCards.chooseCreate"
                             >
                                 Create Cards
                             </button>
                             <button class="col-xs-12 homeScreenButtons light" style="margin-top:8%;"
-                            data-bind="click:vm.chooseList"
+                            data-bind="click:vm.flashCards.chooseList"
                             >
                                 Study Cards
                             </button>
@@ -172,22 +172,22 @@
                         <!-- For Home Screen -->
                                 	                      
 	                    <div class="col-xs-10 col-xs-offset-1" 
-                        data-bind="css:{ isHidden: vm.currentView() ==='home' }" 
+                        data-bind="css:{ isHidden: vm.flashCards.currentView() ==='home' }" 
                         style="height:100%">
  
                             <!-- For Choose List -->
-                            <div data-bind="css:{ isHidden: vm.currentView() !=='choose' }"
+                            <div data-bind="css:{ isHidden: vm.flashCards.currentView() !=='choose' }"
                             class="col-xs-12 sorting_buttons_family" 
                             style="">
                                 <button 
                                 class="col-xs-5 sorting_buttons_individual"
-                                data-bind="click:function() { vm.sortSummaryByNames(); myScroll.scrollTo(0, 0, 500, false) }"
+                                data-bind="click:function() { vm.flashCards.sortSummaryByNames(); myScroll.scrollTo(0, 0, 500, false) }"
                                 >
                                     By Name
                                 </button>
                                 <button 
                                 class="col-xs-5 col-xs-offset-2 sorting_buttons_individual"
-                                data-bind="click: function() { vm.sortSummaryByGrades(); myScroll.scrollTo(0, 0, 500, false) }"
+                                data-bind="click: function() { vm.flashCards.sortSummaryByGrades(); myScroll.scrollTo(0, 0, 500, false) }"
                                 >
                                     By Grade
                                 </button>
@@ -196,45 +196,45 @@
 
 
                             <!-- For scrollable content in body -->
-                            <div class="scroll-wrapper" style="z-index:20" data-bind="css:{ isHidden: vm.currentView() ==='enter_name' }">
+                            <div class="scroll-wrapper" style="z-index:20" data-bind="css:{ isHidden: vm.flashCards.currentView() ==='enter_name' }">
 	                            <div class="scroller">
 
                                     <!-- For studying flashcards -->
-                                        <!-- ko if: vm.studyMode() === "study" -->
+                                        <!-- ko if: vm.flashCards.studyMode() === "study" -->
                                         <div class="first-word" style="text-align:center; font-size:45px; margin-top:15%"
-                                        data-bind="css:{ isHidden: vm.currentView() !=='front' }, text:vm.frontText()" >Concept</div>
+                                        data-bind="css:{ isHidden: vm.flashCards.currentView() !=='front' }, text:vm.flashCards.frontText()" >Concept</div>
 
                                         <div style="text-align:center; font-size:25px; margin-top:10%" 
-                                        data-bind="css:{ isHidden: vm.currentView() !=='back' }, foreach: vm.backText()" >
+                                        data-bind="css:{ isHidden: vm.flashCards.currentView() !=='back' }, foreach: vm.flashCards.backText()" >
                                             <div class="first-word" data-bind="text:'&#149; '+$data"></div>
                                         </div>
                                         <!-- /ko -->
 
-                                        <!-- ko if: vm.studyMode() === "edit" -->
+                                        <!-- ko if: vm.flashCards.studyMode() === "edit" -->
                                                                                        
-                                            <!-- ko if: vm.currentView() === "back" -->
+                                            <!-- ko if: vm.flashCards.currentView() === "back" -->
                                             <div style="margin-top:2%">
                                                 <div class="disable-touch-click col-xs-12 light" 
                                                     style="font-size:20px; text-align:center; cursor:pointer; padding:10px"
-                                                    data-bind="click:vm.addNewTextField">
+                                                    data-bind="click:vm.flashCards.addNewTextField">
                                                     Add Text Field
                                                 </div>
                                             </div>
 
-                                            <div data-bind="foreach: vm.backText()" style="margin-top:15%;">
+                                            <div data-bind="foreach: vm.flashCards.backText()" style="margin-top:15%;">
                                                 <div class="input-group input-group-lg" style="margin-bottom:10px">
                                                     <span class="disable-touch-click input-group-addon glyphicon glyphicon-remove" 
-                                                    data-bind="click: function() { vm.removeThisTextField($index()) }"
+                                                    data-bind="click: function() { vm.flashCards.removeThisTextField($index()) }"
                                                     style="color:red; font-size:30px; padding:4px !important; cursor:pointer"></span> 
                                                     <input class="form-control edit_back" style="height:70px; font-size:25px; padding:0px" 
                                                     type="text" data-bind="value:$data" placeholder="New Text Field Here">
                                                 </div>
                                             </div>
                                             <!-- /ko -->
-                                            <!-- ko if: vm.currentView() === "front" -->
+                                            <!-- ko if: vm.flashCards.currentView() === "front" -->
                                             <div style="margin-top:15%">
                                                     <input id="edit_front" class="form-control" style="height:70px; font-size:45px; padding:0px 0px 0px 5px"
-                                                    type="text" data-bind="value:vm.frontText()" placeholder="New Topic Here">
+                                                    type="text" data-bind="value:vm.flashCards.frontText()" placeholder="New Topic Here">
                                             </div>
                                             <!-- /ko -->
                                         <!-- /ko -->
@@ -242,28 +242,28 @@
 	                                <!-- For studying flashcards -->
 
                                     <!-- For results -->
-                                    <span  data-bind="css:{ isHidden: vm.currentView() !=='result' }">
+                                    <span  data-bind="css:{ isHidden: vm.flashCards.currentView() !=='result' }">
                                         <div style="text-align:center; font-size:45px">Percent Correct:</div>
-                                        <div data-bind="text: vm.percentageCorrect() +'%'" style="text-align:center; font-size:55px; ">
+                                        <div data-bind="text: vm.flashCards.percentageCorrect() +'%'" style="text-align:center; font-size:55px; ">
                                         </div>
                                     </span>
                                     <!-- For results -->
 
                                     <!-- For Choose List -->
-                                    <span  data-bind="foreach: vm.summary(), css:{ isHidden: vm.currentView() !=='choose' }">
+                                    <span  data-bind="foreach: vm.flashCards.summary(), css:{ isHidden: vm.flashCards.currentView() !=='choose' }">
 
                                         <div 
                                         style="position:relative"
                                         class="first-word button-show-as-clicked dark outer-choose-button" 
-                                        data-bind="css:{ light: !vm.isOdd($index())}" >
+                                        data-bind="css:{ light: !vm.flashCards.isOdd($index())}" >
                                             <div 
                                             class= "inner-choose-button"
-                                            data-bind="text: $data.name, css:{leftShift: vm.showListGrade()}"
+                                            data-bind="text: $data.name, css:{leftShift: vm.flashCards.showListGrade()}"
                                             >
                                             </div>
                                             <div 
                                             class="chooseListGrade" 
-                                            data-bind="css:{ isHidden: !vm.showListGrade() }, text: $data.grade + '%'"
+                                            data-bind="css:{ isHidden: !vm.flashCards.showListGrade() }, text: $data.grade + '%'"
                                             >
                                                 80%
                                             </div>
@@ -290,13 +290,13 @@
                             <div id="non_scrollable_y_adjust">
 
                                 <!-- For Enter Name -->
-                                <div data-bind="css:{ isHidden: vm.currentView() !=='enter_name' }">
+                                <div data-bind="css:{ isHidden: vm.flashCards.currentView() !=='enter_name' }">
 
                                     <input id="enter_name_input" class="col-xs-12" style="text-transform:capitalize"
                                     type="text" placeholder="Enter New Card List Name"
-                                    data-bind="value:vm.cardListName()">
+                                    data-bind="value:vm.flashCards.cardListName()">
 
-                                    <button id="enter_name_button" data-bind="click:vm.workOnCardList">
+                                    <button id="enter_name_button" data-bind="click:vm.flashCards.workOnCardList">
                                         Enter
                                     </button>
                                 </div>
@@ -328,17 +328,17 @@
                         </a>
                         <!-- height place holder -->
 
-                        <!-- ko with: vm.flashCardArray()[vm.flashCardId()] -->
+                        <!-- ko with: vm.flashCards.flashCardArray()[vm.flashCards.flashCardId()] -->
                             <a href="#" class="col-xs-4 col-xs-height col-middle j-icon button-show-as-clicked"
-                            data-bind="css:{ wrongCorrect: $data.isCorrect()===1, isDisabled: vm.hideCheckers() || vm.studyMode()=='edit'}, 
-                            click: vm.correctButtonPushed">
+                            data-bind="css:{ wrongCorrect: $data.isCorrect()===1, isDisabled: vm.flashCards.hideCheckers() || vm.flashCards.studyMode()=='edit'}, 
+                            click: vm.flashCards.correctButtonPushed">
                                 <span  class="glyphicon glyphicon-ok button-icon-center" 
                                 style="font-size:40px; color:green"></span>
                             </a>
 
                             <a href="#" class="col-xs-4 col-xs-height col-middle j-icon button-show-as-clicked" 
-                            data-bind="css:{ wrongCorrect: $data.isCorrect()===-1, isDisabled: vm.hideCheckers() || vm.studyMode()=='edit'},
-                            click: vm.incorrectButtonPushed">
+                            data-bind="css:{ wrongCorrect: $data.isCorrect()===-1, isDisabled: vm.flashCards.hideCheckers() || vm.flashCards.studyMode()=='edit'},
+                            click: vm.flashCards.incorrectButtonPushed">
                                 <span  class="glyphicon glyphicon-remove"
                                 style="font-size:40px; color:red"
                                 ></span>
@@ -346,7 +346,7 @@
                         <!-- /ko -->
 
                         <a href="#" class="col-xs-4 col-xs-height col-middle j-icon button-show-as-clicked"
-                        data-bind="click: vm.exitApp"  >           
+                        data-bind="click: vm.flashCards.exitApp"  >           
                             <div style="height:4px"></div>     
                             <span style="font-size:25px;">End</span>
                         </a>

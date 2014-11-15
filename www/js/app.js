@@ -16,7 +16,7 @@ function flashCardList(uniqueId, list) {
     self.list = list;           //a list from local Storage	
 }
 
-function app() {
+function flashCards() {
     var self = this;
 
     //-------------get meta_data for all the lists
@@ -593,15 +593,35 @@ function app() {
         }
 
     }
-    
-    self.deleteCardList = function() {
-		alert('card list deleted !');
-		self.hideAllModals(true);
-	}
 
 }
-//------------------------creates an instance of the app called vm and applies bindings to it
-var vm = new app();
-ko.applyBindings(vm);
-//------------------------creates an instance of the app called vm and applies bindings to it
 
+function system() {
+    var self = this;
+    self.flashCards = new flashCards();
+    
+    self.hideAllModals	= ko.observable(true);
+    
+    self.hideModals = function() {
+		self.hideAllModals(true);
+		myScroll.enable();
+	}	
+	
+    self.showModals = function() {
+		self.hideAllModals(false);
+		myScroll.disable();
+	}	
+	
+    self.deleteCardList = function() {
+		alert('card list deleted !');
+		self.hideModals();
+	}	
+}
+
+//------------------------creates an instance of the flashCardApp called vm and applies bindings to it
+//var vm = new flashCards();
+//ko.applyBindings(vm);
+//------------------------creates an instance of the flashCardApp called vm and applies bindings to it
+
+var vm = new system();
+ko.applyBindings(vm);
