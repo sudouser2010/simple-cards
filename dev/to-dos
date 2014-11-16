@@ -11,6 +11,14 @@ Phase1
     *note when deleting cardlist, I have to remove it from local storage and from the list summary as well
         -therefore I need the list-summary-id and the local-storage-id of the flashcard list to be deleted
 
+(1) fix bug with hide all modals
+    -bug occurs after clicking yes or no on delete cardlist.
+        -the scroll still follows mouse even though the mouse is not down
+
+        -options:
+            -only enable scroller when mouse is down and modal is hidden
+            -use iscroller to reset state
+
 ---------------------------------------9/21/2014
 (0) enable user to create newcardlist++
 (1) enable user to go back to title page and edit the name++
