@@ -180,7 +180,7 @@ function removeItemFromArray(array, index_of_item_to_remove) {
 //--------------------------so user can delete a card or card list
 
 $('.scroller').on("mousedown", ".deletable", function () {
-
+	myScroll.enable();
     //-----------------------------initialization
     $(window).data("startx", arguments[0].pageX );
     $(window).data("starty", arguments[0].pageY );
@@ -223,7 +223,8 @@ $('.scroller').on("mousedown", ".deletable", function () {
 
 }).on("click", ".deletable", function () {
     $(window).data('isARealMouseDown',false);
-});
+	myScroll.disable();    
+})
 
 function goToSpecificCardList(data, index, event) {
 	

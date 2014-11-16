@@ -606,12 +606,12 @@ function system() {
     
     self.hideModals = function() {
 		self.hideAllModals(true);
-		myScroll.enable();
+		//myScroll.enable();
 	}	
 	
     self.showModals = function() {
 		self.hideAllModals(false);
-		myScroll.disable();
+		//myScroll.disable();
 	}	
 	
     self.deleteCardList = function() {
