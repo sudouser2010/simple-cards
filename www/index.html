@@ -271,7 +271,8 @@
                                             <button
                                             class="deletable"
                                             style="position:absolute; height:100%; top:0px; left:0px"
-                                            data-bind="click: function(data, event) { goToSpecificCardList(data, $index(), event); }"  
+                                            data-bind="click: function(data, event) { goToSpecificCardList(data, $index(), event); },
+                                            attr: { 'data-list_summary_id': $index(), 'data-local_storage_id' : $data.id }" 
                                             >
                                             </button>
                                         </div>

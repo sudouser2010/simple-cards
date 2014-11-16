@@ -601,6 +601,8 @@ function system() {
     self.flashCards = new flashCards();
     
     self.hideAllModals	= ko.observable(true);
+	self.indexOfCardListInSummaryToDelete		= ko.observable('nada');
+	self.indexOfCardListInLocalStorageToDelete	= ko.observable('nada');
     
     self.hideModals = function() {
 		self.hideAllModals(true);
@@ -613,15 +615,11 @@ function system() {
 	}	
 	
     self.deleteCardList = function() {
-		alert('card list deleted !');
+		//alert('card list deleted !');
 		self.hideModals();
+		//delete cardlist from local storage and from list summary arrays
 	}	
 }
-
-//------------------------creates an instance of the flashCardApp called vm and applies bindings to it
-//var vm = new flashCards();
-//ko.applyBindings(vm);
-//------------------------creates an instance of the flashCardApp called vm and applies bindings to it
 
 var vm = new system();
 ko.applyBindings(vm);

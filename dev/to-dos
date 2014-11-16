@@ -1,5 +1,15 @@
 Phase1
 
+-------------------------------------------------------11/15/2014
+(0) make delete cardlist get context data on what cardlist was clicked ++
+    -options:
+        -put on mousedown inside of binding
+            -kind of ugly
+        -pass information to the binding using data
+            -like this one
+
+    *note when deleting cardlist, I have to remove it from local storage and from the list summary as well
+        -therefore I need the list-summary-id and the local-storage-id of the flashcard list to be deleted
 
 ---------------------------------------9/21/2014
 (0) enable user to create newcardlist++
@@ -14,7 +24,7 @@ Phase1
         has predefined information on the front and back of the card.++
 (3) make code pop up: "are you sure you want to exit"
     -this is not needed in phase1
-(4) when user holds cardlist button down on choose list for more than 3 seconds, he/she can delete it
+(4) when user holds cardlist button down on choose list for more than 3 seconds, he/she can delete it ++
     -note I need to alter mechanism keeping track of unique cards.
     -method1
         -when looping use next to refer to the next item

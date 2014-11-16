@@ -186,7 +186,10 @@ $('.scroller').on("mousedown", ".deletable", function () {
     $(window).data("starty", arguments[0].pageY );
     $(window).data('isARealMouseDown',true);
     //-----------------------------initialization
-    
+
+	vm.indexOfCardListInSummaryToDelete(this.getAttribute("data-list_summary_id"));
+	vm.indexOfCardListInLocalStorageToDelete(this.getAttribute("data-local_storage_id"));
+	 
 	window.downTimer = setTimeout(function() {
 
 	if ($(window).data('isARealMouseDown') === true) {
