@@ -4,6 +4,8 @@ Phase1
 (0) delete card list
     -make functions for it
     -check functionality for errors
+        -see what happens when a list is deleted. check for errors with that
+        >> looks good
 
 -------------------------------------------------------11/15/2014
 (0) make delete cardlist get context data on what cardlist was clicked ++
