@@ -606,17 +606,25 @@ function system() {
     
     self.hideModals = function() {
 		self.hideAllModals(true);
-		//myScroll.enable();
 	}	
 	
     self.showModals = function() {
 		self.hideAllModals(false);
-		//myScroll.disable();
 	}	
 	
     self.deleteCardList = function() {
-		//alert('card list deleted !');
 		self.hideModals();
+		
+		//(1) get local summary
+		//(2) modify local summary by removing index of interest
+		//(3) make flashCard summary equal to local summary
+		var local_summary = self.flashCards.summary();
+		local_summary.splice(self.indexOfCardListInSummaryToDelete(), 1);	
+		self.flashCards.summary(local_summary);
+
+
+		self.indexOfCardListInSummaryToDelete();
+		self.indexOfCardListInLocalStorageToDelete();
 		//delete cardlist from local storage and from list summary arrays
 	}	
 }
