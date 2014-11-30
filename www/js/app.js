@@ -622,7 +622,12 @@ function system() {
 		local_summary.splice(self.indexOfCardListInSummaryToDelete(), 1);	
 		self.flashCards.summary(local_summary);
 
-
+		//(1) the flashcard meta data list is automatically updated when the summary list is updated
+		//save those changes to the meta data list to the localStorage
+        self.flashCards.metaDataForAllLists.sortState = self.flashCards.summarySortState;
+        localStorage.setObject("meta_data", self.flashCards.metaDataForAllLists);
+            		
+				
 		self.indexOfCardListInSummaryToDelete();
 		self.indexOfCardListInLocalStorageToDelete();
 		//delete cardlist from local storage and from list summary arrays
