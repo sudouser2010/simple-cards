@@ -612,25 +612,38 @@ function system() {
 		self.hideAllModals(false);
 	}	
 	
-    self.deleteCardList = function() {
-		self.hideModals();
-		
+	self.removeCardListFromFlashCardListSummary = function(indexOfCardListInSummaryToDelete){
+			
 		//(1) get local summary
 		//(2) modify local summary by removing index of interest
 		//(3) make flashCard summary equal to local summary
 		var local_summary = self.flashCards.summary();
-		local_summary.splice(self.indexOfCardListInSummaryToDelete(), 1);	
-		self.flashCards.summary(local_summary);
-
+		local_summary.splice(indexOfCardListInSummaryToDelete(), 1);	
+		self.flashCards.summary(local_summary);	
+	}
+	
+	self.makeLocalStorageMetaDataMatchFlashCardListMetaData = function(){
+	
 		//(4) the flashcard meta data list is automatically updated when the summary list is updated
 		//save those changes to the meta data list to the localStorage
         self.flashCards.metaDataForAllLists.sortState = self.flashCards.summarySortState;
-        localStorage.setObject("meta_data", self.flashCards.metaDataForAllLists);
-            		
+        localStorage.setObject("meta_data", self.flashCards.metaDataForAllLists);		
+		
+	}
+	
+	self.deleteListFromLocalStorage = function(indexOfCardListInLocalStorageToDelete){
+	
 		//(5) get list id to delete
 		//(6) delete value by the list id from localStorage
-		var listToDeleteInLocalStorage = "list"+self.indexOfCardListInLocalStorageToDelete();
-        delete localStorage[listToDeleteInLocalStorage];
+		var listToDeleteInLocalStorage = "list"+indexOfCardListInLocalStorageToDelete;
+        delete localStorage[listToDeleteInLocalStorage];		
+	}
+	
+    self.deleteCardList = function() {
+		self.hideModals();
+		self.removeCardListFromFlashCardListSummary(self.indexOfCardListInSummaryToDelete);
+		self.makeLocalStorageMetaDataMatchFlashCardListMetaData();
+		self.deleteListFromLocalStorage(self.indexOfCardListInLocalStorageToDelete());            		
 	}	
 }
 
