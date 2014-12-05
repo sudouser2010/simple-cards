@@ -223,7 +223,10 @@ $('.scroller').on("mousedown", ".deletable", function () {
 
 }).on("click", ".deletable", function () {
     $(window).data('isARealMouseDown',false);
-	myScroll.disable();    
+
+    if(vm.flashCards.hideArrows()){
+	    myScroll.disable();    
+    }
 })
 
 function goToSpecificCardList(data, index, event) {
