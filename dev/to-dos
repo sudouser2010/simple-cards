@@ -1,5 +1,13 @@
 Phase1
 
+--------------------------------------------------------------12/27/2014
+(0) will add buttons instead of touch screen capability for deleting the cardlist
+    -the touch screen capability does not work on mobile phones
+
+-----------------------------------12/4/2014
+(0) add functionality:
+    when user pushes setting button for card, the delete flashcard comes up--
+
 --------------------------------------------------------------11/30/2014
 (0)there is a ui bug that needs to befixed ++
     -the scrolling issue when viewing the cardlist
