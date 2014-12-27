@@ -643,7 +643,8 @@ function system() {
 		self.hideModals();
 		self.removeCardListFromFlashCardListSummary(self.indexOfCardListInSummaryToDelete);
 		self.makeLocalStorageMetaDataMatchFlashCardListMetaData();
-		self.deleteListFromLocalStorage(self.indexOfCardListInLocalStorageToDelete());            		
+		self.deleteListFromLocalStorage(self.indexOfCardListInLocalStorageToDelete()); 
+		vm.flashCards.updateCardUi();           		
 	}	
 
 	self.removeCardListAction = function(data_list_summary_id, data_local_storage_id){
