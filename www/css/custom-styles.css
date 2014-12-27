@@ -309,7 +309,10 @@ font-size:40px; padding:10px;
 }
 
 .remove-card-list{
-	font-size:40px; left:-40px; top:25px;
+	font-size:40px; 
+	left:-40px; top:25px;
+	cursor:pointer;
+	z-index:1;
 }
 
 /* Portrait */

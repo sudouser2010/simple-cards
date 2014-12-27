@@ -645,6 +645,12 @@ function system() {
 		self.makeLocalStorageMetaDataMatchFlashCardListMetaData();
 		self.deleteListFromLocalStorage(self.indexOfCardListInLocalStorageToDelete());            		
 	}	
+
+	self.removeCardListAction = function(data_list_summary_id, data_local_storage_id){
+		self.indexOfCardListInSummaryToDelete(data_list_summary_id);
+		self.indexOfCardListInLocalStorageToDelete(data_local_storage_id);
+		self.showModals();
+	}	
 }
 
 var vm = new system();

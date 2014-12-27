@@ -177,7 +177,7 @@ function removeItemFromArray(array, index_of_item_to_remove) {
 }
 //-----------------------removing an item from array
 
-//--------------------------so user can delete a card or card list
+//--------------------------so user can delete a card list
 
 $('.scroller').on("mousedown", ".deletable", function () {
 	myScroll.enable();
@@ -236,7 +236,11 @@ function goToSpecificCardList(data, index, event) {
 	}
 	
 }
-//--------------------------so user can delete a card or card list
+
+function removeSpecificCardList(data_list_summary_id, data_local_storage_id) {
+	vm.removeCardListAction(data_list_summary_id, data_local_storage_id);
+}
+//--------------------------so user can delete a card list
 
 
 

@@ -257,7 +257,9 @@
                                         class="first-word button-show-as-clicked dark outer-choose-button" 
                                         data-bind="css:{ light: !vm.flashCards.isOdd($index())}" >
                                         
-											<span  class="glyphicon glyphicon-remove remove-card-list"></span>                                         
+											<span 
+                                            data-bind="click: function() { removeSpecificCardList($index(), $data.id); }," 
+											class="glyphicon glyphicon-remove remove-card-list"></span>                                         
                                         
                                             <div 
                                             class= "inner-choose-button"
