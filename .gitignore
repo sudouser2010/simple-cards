@@ -1,7 +1,7 @@
 *~
 *.pyc
 /dev
-.xdk
-.xdke
-.xml
-_bak
+~.xdk
+~.xdke
+~.xml
+~_bak
