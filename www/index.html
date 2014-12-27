@@ -256,6 +256,9 @@
                                         style="position:relative"
                                         class="first-word button-show-as-clicked dark outer-choose-button" 
                                         data-bind="css:{ light: !vm.flashCards.isOdd($index())}" >
+                                        
+											<span  class="glyphicon glyphicon-remove remove-card-list"></span>                                         
+                                        
                                             <div 
                                             class= "inner-choose-button"
                                             data-bind="text: $data.name, css:{leftShift: vm.flashCards.showListGrade()}"

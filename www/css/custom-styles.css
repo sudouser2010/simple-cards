@@ -185,7 +185,7 @@ body {
 
 /*----------for choose list buttons---------*/
 .outer-choose-button {
-    padding-left:5% !important; 
+    padding-left:45px !important; 
     padding-right:5% !important; 
     padding-top:3%;
     padding-bottom:3%;
@@ -306,6 +306,10 @@ font-size:40px; padding:10px;
 	z-index:21; 
 	width:100%; height:100%;
 	position:absolute
+}
+
+.remove-card-list{
+	font-size:40px; left:-40px; top:25px;
 }
 
 /* Portrait */
