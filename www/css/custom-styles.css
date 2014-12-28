@@ -282,7 +282,7 @@ font-size:40px; padding:10px;
     margin-right:auto;
 }
 
-#delete-card-list-context-menu{
+#delete-card-list-context-menu, #delete-card-context-menu{
 	background-color: grey;
 	border-radius:10px;
 	padding:30px 40px;

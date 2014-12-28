@@ -78,7 +78,8 @@
                         </div>
                         <a href="#" class="col-xs-1 col-xs-height col-middle j-icon adjust-menu-padding"
                         data-bind="css:{ isDisabled: vm.flashCards.currentView() === 'result' 
-                        || vm.flashCards.hideArrows() || vm.flashCards.studyMode() === 'study'}">            
+                        || vm.flashCards.hideArrows() || vm.flashCards.studyMode() === 'study'},
+                        click: vm.showModals,">            
                             <span class="fa fa-scissors icon-show-as-clicked-blur no-hilight" style="font-size:40px"></span>
                         </a>
                   
@@ -106,6 +107,24 @@
 			</div>
 			<!-- delete-card-list-context-menu -->
 
+
+			<div id="delete-card-context-menu" 
+			class="absolute-and-centered" style="text-align:center"
+			data-bind="css:{ isHidden: vm.flashCards.studyMode() !=='edit' || vm.hideAllModals() }"
+			>			
+				<h2>
+					Delete Flash Card ?
+				</h2>
+				<div class="delete-button" data-bind="click:vm.hideModals">
+					No
+				</div>
+				<div class="delete-button" data-bind="">
+					Yes
+				</div>
+				
+			</div>
+			<!-- delete-card-list-context-menu -->
+			
 			<div id="modal-shadow"
 				data-bind="css:{ isHidden: vm.hideAllModals() }"
 			>
