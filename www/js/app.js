@@ -1,3 +1,4 @@
+//localStorage.clear();
 function flashCard(uniqueId, front, back, correct) {
     var self = this;
 
@@ -20,8 +21,15 @@ function flashCards() {
     var self = this;
 
     //-------------get meta_data for all the lists
-    self.metaDataForAllLists    = localStorage.getObject("meta_data");
-    self.summarySortState       = self.metaDataForAllLists.sortState;
+	if (localStorage.getItem("list0") === null) {
+		self.metaDataForAllLists    = {"sortState":"none", "summary": []};
+		self.summarySortState       = self.metaDataForAllLists.sortState;	
+	}else{
+		self.metaDataForAllLists    = localStorage.getObject("meta_data");
+		self.summarySortState       = self.metaDataForAllLists.sortState;	
+	}
+    
+
     /*
         the summarySortState can be none, nameForward, nameReversed, 
         gradeForward, gradeReversed

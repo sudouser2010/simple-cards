@@ -100,6 +100,7 @@ summary = [
 localStorage.clear(); //clears local storage, for development purposes
 
 /* if list0 is not defined */
+
 if (localStorage.getItem("list0") === null) {
     localStorage.setObject("meta_data", {"sortState":"none", "summary": summary});
     localStorage.setObject("list0", {"meta_data": meta_data0, "list_data": list_data0} );
@@ -109,9 +110,7 @@ if (localStorage.getItem("list0") === null) {
     //alert("data is refreshed");
 }
 
-
-
-
+//---------------------------------------------
 
 
 
