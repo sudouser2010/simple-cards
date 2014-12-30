@@ -611,7 +611,6 @@ function flashCards() {
             (2) removes card information from the flashCardArray
             (3) decreases the numberOfCards by one
             (4) update localStorage
-            (5) recalculate grade
         */
 
 		var current_card_index	= self.flashCardId();
