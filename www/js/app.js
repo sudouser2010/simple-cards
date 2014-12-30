@@ -514,7 +514,7 @@ function flashCards() {
         /*
             code does the following:
             (1) appends new card information to the list_data
-            (2) appends new card information tothe flashCardArray
+            (2) appends new card information to the flashCardArray
             (3) increases the numberOfCards by one
             (4) set the flashCardId() to numberOfCards-1
             (5) update localStorage
@@ -593,6 +593,49 @@ function flashCards() {
         }
 
     }
+    
+	self.removeCardFromFlashCardArray = function(current_card_index){
+		//(1) get local summary
+		//(2) modify local summary by removing index of interest
+		//(3) make flashCardArray equal to local summary
+		var local_summary = self.flashCardArray();
+		local_summary.splice(current_card_index, 1);	
+		self.flashCardArray(local_summary);	
+	}    
+    
+	self.deleteFlashCard = function(){		
+        /*
+            code does the following:
+            (0) get currnt card index
+            (1) removes card information from the list_data
+            (2) removes card information from the flashCardArray
+            (3) decreases the numberOfCards by one
+            (4) update localStorage
+            (5) recalculate grade
+        */
+
+		var current_card_index	= self.flashCardId();
+		self.list_data.splice(current_card_index, 1);
+		self.removeCardFromFlashCardArray(current_card_index);
+        self.numberOfCards--;
+        localStorage.setObject("list"+self.listId, {"meta_data": self.meta_data, "list_data": self.list_data} );  
+        
+        /*
+         *Note that b/c an element was deleted from the list_data, the current_card_index refers
+         *to the next element in the list_data list 
+         */
+		if(typeof self.list_data[current_card_index] != 'undefined') {
+			// card infront does exist
+			self.increaseId();
+		}
+		else {
+			// assumes the card behind exists
+			self.decreaseId();
+		}         
+
+		
+        vm.hideModals();      		
+	}
 
 }
 
@@ -652,6 +695,7 @@ function system() {
 		self.indexOfCardListInLocalStorageToDelete(data_local_storage_id);
 		self.showModals();
 	}	
+	
 }
 
 var vm = new system();
