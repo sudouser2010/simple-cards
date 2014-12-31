@@ -5,7 +5,8 @@ an opensource Knockout-PhoneGap flashcard app
 
 ##Description
 
-I created this project because at the time of inception, there were no good free flashcard programs on Google Play. Currently, I'm in the process on building phase 1 of this application which is shown by [design_layout1.png](https://github.com/sudouser2010/simple-cards/blob/master/design_layout1.png).
+I created this project because at the time of inception, there were no good free flashcard programs on Google Play. Currently, I'm in the process on building phase 1 of this application which is shown below:
+![design_layout1.png](https://github.com/sudouser2010/simple-cards/blob/master/design_layout1.png "design_layout1.png")
 
 As of this point, the application is about halfway through Phase1 so it still has a long way to go.
 
