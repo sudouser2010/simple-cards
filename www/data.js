@@ -1,4 +1,4 @@
-meta_data0 = {"name":"computer terminology", "grade":"0"};
+meta_data0 = {"name":"computer terminology", "grade":0};
 list_data0 = [
     {
     "front"	    : 	"kernel",
@@ -22,7 +22,7 @@ list_data0 = [
 ];
 
 
-meta_data1 = {"name":"physics", "grade":"0"};
+meta_data1 = {"name":"physics", "grade":0};
 list_data1 = [
     {
     "front"	    : 	"Isaac Newton",
@@ -45,7 +45,7 @@ list_data1 = [
 
 
 
-meta_data2 = {"name":"american government", "grade":"0"};
+meta_data2 = {"name":"american government", "grade":0};
 list_data2 = [
     {
     "front"	    : 	"George Washington",
@@ -60,7 +60,7 @@ list_data2 = [
 
 ];
 
-meta_data3 = {"name":"gre vocabulary", "grade":"0"};
+meta_data3 = {"name":"gre vocabulary", "grade":0};
 list_data3 = [
     {
     "front"	    : 	"abet",
@@ -102,7 +102,7 @@ localStorage.clear(); //clears local storage, for development purposes
 /* if list0 is not defined */
 
 if (localStorage.getItem("list0") === null) {
-    localStorage.setObject("meta_data", {"sortState":"none", "summary": summary});
+    localStorage.setObject("meta_data", {"sortState":"none", "summary": summary, 'count':4});
     localStorage.setObject("list0", {"meta_data": meta_data0, "list_data": list_data0} );
     localStorage.setObject("list1", {"meta_data": meta_data1, "list_data": list_data1} );
     localStorage.setObject("list2", {"meta_data": meta_data2, "list_data": list_data2} );

@@ -1,4 +1,4 @@
-localStorage.clear();
+//localStorage.clear();
 function flashCard(uniqueId, front, back, correct) {
     var self = this;
 
@@ -30,7 +30,7 @@ function flashCards() {
 
     //-------------get meta_data for all the lists
 	if (self.isLocalStorageEmpty()) {
-		self.metaDataForAllLists    = {"sortState":"none", "summary": []};
+		self.metaDataForAllLists    = {"sortState":"none", "summary": [], 'count':0};
 		self.summarySortState       = self.metaDataForAllLists.sortState;	
 	}else{
 		self.metaDataForAllLists    = localStorage.getObject("meta_data");
@@ -573,13 +573,16 @@ function flashCards() {
             var newCardListName     = $("#enter_name_input").val();
             if  (self.isLocalStorageEmpty()){
 				var numberOfCardLists = 0;
+				
 			}else{
-				var numberOfCardLists = localStorage.length-1;
+				var numberOfCardLists = self.metaDataForAllLists.count;
+				
 			}
-
-            var newCardListIndex    = numberOfCardLists;
-            var meta_data           = {"name":newCardListName, "grade":"0"};
-            var list_data           = [
+			
+			self.metaDataForAllLists.count++;
+            var newCardListIndex    		= numberOfCardLists;
+            var meta_data           		= {"name":newCardListName, "grade":"0"};
+            var list_data           		= [
                 {
                     "front"	    : 	"",
 	                "back"	    : 	[""]
