@@ -111,8 +111,8 @@
 
 			<div id="delete-card-context-menu" 
 			class="absolute-and-centered" style="text-align:center"
-			data-bind="css:{ isHidden: vm.flashCards.studyMode() !=='edit' || vm.hideAllModals() }"
-			>			
+			data-bind="css:{ isHidden: vm.flashCards.currentView() ==='choose' || vm.hideAllModals() }"
+			>
 				<h2>
 					Delete Flash Card ?
 				</h2>

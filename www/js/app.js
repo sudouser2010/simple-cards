@@ -29,7 +29,7 @@ function flashCards() {
 	}
 
     //-------------get meta_data for all the lists
-	if (localStorage.getItem("list0") === null) {
+	if (self.isLocalStorageEmpty()) {
 		self.metaDataForAllLists    = {"sortState":"none", "summary": []};
 		self.summarySortState       = self.metaDataForAllLists.sortState;	
 	}else{
