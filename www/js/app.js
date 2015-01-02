@@ -516,6 +516,12 @@ function flashCards() {
 
         //saves new state of cards
         self.saveCard();
+        
+        /*
+         * this is so the flashcard will still be scrollable 
+         * after adding a text field 
+         */
+        vm.flashCards.updateCardUi();
     }
 
     self.addNewCard = function() {
