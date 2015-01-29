@@ -97,7 +97,7 @@ summary = [
                 {"id":3, "name":meta_data3["name"], "grade": meta_data3["grade"] },
 ];
 
-localStorage.clear(); //clears local storage, for development purposes
+//localStorage.clear(); //clears local storage, for development purposes
 
 /* if list0 is not defined */
 
@@ -107,7 +107,7 @@ if (localStorage.getItem("list0") === null) {
     localStorage.setObject("list1", {"meta_data": meta_data1, "list_data": list_data1} );
     localStorage.setObject("list2", {"meta_data": meta_data2, "list_data": list_data2} );
     localStorage.setObject("list3", {"meta_data": meta_data3, "list_data": list_data3} );
-    //alert("data is refreshed");
+    alert("data is refreshed");
 }
 
 //---------------------------------------------

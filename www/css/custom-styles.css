@@ -168,7 +168,8 @@ a {
     background-color: rgb(100,50,255);
 }
 .light {
-    background-color: rgb(150,150,255);
+    /*background-color: rgb(150,150,255);*/
+    background-color: rgb(210, 210, 228);
 }
 
 /*------------- fix main content centering issue ------------*/
@@ -223,7 +224,9 @@ button {
 }
 
 .sorting_buttons_individual {
-    background-color: rgb(255,128,128); height:100%; padding-bottom:3px
+    background-color: rgb(255,128,128);
+    
+    height:100%; padding-bottom:3px
 }
 
 #body-content{
@@ -246,7 +249,7 @@ font-size:40px; padding:10px;
 
 /* study-edit button */
 .study_edit_selected {
-    color: rgb(50,50,50) !important;
+    color: rgb(74,76,113) !important;
 }
 
 .study_edit {
@@ -259,7 +262,7 @@ font-size:40px; padding:10px;
 }
 
 #enter_name_button {
-    margin-top:5%; background-color: rgb(200,200,100); height:50px; font-size:40px;
+    margin-top:5%; background-color: #64BDC8; height:50px; font-size:40px;
 }
 
 #non_scrollable_y_adjust {
@@ -362,5 +365,26 @@ font-size:40px; padding:10px;
 
 }
 
+/*-------------------- color scheme ------------------------*/
+.background{
+	background-color: rgb(121,121,169);
+}
 
+.bottom{
+	/*background-color: rgb(83, 83, 141);*/
+	background-color: rgb(11, 27, 84);
+	position:absolute; bottom:0%; width:100%; z-index:21;
+}
 
+.end-text{
+	color: #040417;
+}
+
+#body-header{
+	position:absolute; 
+	top:0%; 
+	width:100%; 
+	background-color: rgb(11, 27, 84);
+	z-index:21;
+}
+/*-------------------- color scheme ------------------------*/

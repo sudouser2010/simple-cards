@@ -23,7 +23,7 @@
 		</script>
 		<script src="cordova.js"></script>
 		<script src="js/knockout.js"></script>	
-		<script src="iscroll/iscroll-lite.js"></script>
+		<script src="iscroll/iscroll-lite.js"></script>		
 	</head>
 
     <script type="text/javascript">
@@ -40,13 +40,11 @@
     >
 
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~Page-Container start -->
-        <div id="page-container" style="position: relative; height:100%; width:100%; overflow: hidden;">
+        <div id="page-container" class="background" style="position: relative; height:100%; width:100%; overflow: hidden;">
 
 
             <!-- Body-Header start -->
-            <div 
-            id="body-header" data-bind="css:{ isHidden: vm.flashCards.currentView() ==='home' }"
-            style="position:absolute; top:0%; width:100%; background-color: red; z-index:21;">
+            <div id="body-header" data-bind="css:{ isHidden: vm.flashCards.currentView() ==='home' }">
  
                 <div class="container-fluid container-xs-height">
                     <div class="row row-xs-height">
@@ -170,13 +168,13 @@
                 </a>
 				<!-- arrow -->
 				
-                <div class="container body-container">
+                <div class="container body-container background">
                     <div class="row"> 
                                     
                         <!-- For Home Screen -->
                         <div 
                         data-bind="css:{ isHidden: vm.flashCards.currentView() !=='home' }"
-                        class="col-xs-10 col-xs-offset-1" style="height:100%">
+                        class="col-xs-10 col-xs-offset-1 background" style="height:100%">
 
                             <button class="col-xs-12 homeScreenButtons light" style="margin-top:5%;"
                             data-bind="click:vm.flashCards.chooseCreate"
@@ -344,7 +342,7 @@
 
 
 		    <!-- Footer start -->
-	        <div id="body-footer" style="position:absolute; bottom:0%; width:100%; background-color: yellow; z-index:21">
+	        <div id="body-footer" class="bottom" >
 
                 <div class="container container-xs-height">
                     <div class="row row-xs-height" style="line-height:.5">
@@ -360,7 +358,7 @@
                             data-bind="css:{ wrongCorrect: $data.isCorrect()===1, isDisabled: vm.flashCards.hideCheckers() || vm.flashCards.studyMode()=='edit'}, 
                             click: vm.flashCards.correctButtonPushed">
                                 <span  class="glyphicon glyphicon-ok button-icon-center" 
-                                style="font-size:40px; color:green"></span>
+                                style="font-size:40px; color:rgb(66, 174, 66)"></span>
                             </a>
 
                             <a href="#" class="col-xs-4 col-xs-height col-middle j-icon button-show-as-clicked" 
@@ -375,7 +373,7 @@
                         <a href="#" class="col-xs-4 col-xs-height col-middle j-icon button-show-as-clicked"
                         data-bind="click: vm.flashCards.exitApp"  >           
                             <div style="height:4px"></div>     
-                            <span style="font-size:25px;">End</span>
+                            <span class="end-text" style="font-size:25px;">End</span>
                         </a>
 
                     </div>
@@ -390,6 +388,7 @@
 
 		<script src="js/jquery.min.js"></script>
 		<script src="js/custom-js.js"></script>
+		<script src="data.js"></script>				
         <script src="js/app.js"></script>
 
     </body>
