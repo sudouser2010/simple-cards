@@ -3,7 +3,7 @@ simple-cards
 
 an opensource Knockout-PhoneGap flashcard app
 
-### --- Demo ---
+### --- WebSite Demo ---
 [http://SimpleCards.org/](http://simplecards.org/)
 
 ##Description
