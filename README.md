@@ -3,6 +3,9 @@ simple-cards
 
 an opensource Knockout-PhoneGap flashcard app
 
+### --- Demo ---
+[http://SimpleCards.org/](http://simplecards.org/)
+
 ##Description
 
 I created this project because at the time of inception, there were no good free flashcard programs on Google Play. Currently, I'm in the process of fixing defects in phase1. An image of phase1's initial design is shown below:
