@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+
+	<head>
+		<title>Simple Cards</title>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+
+		<meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.css" />
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="css/custom-styles.css" />
+
+		<script src="intelxdk.js"></script>
+		<script>
+			/* Intel native bridge is available */
+			var onDeviceReady=function(){
+			//hide splash screen
+			intel.xdk.device.hideSplashScreen();
+			};
+			document.addEventListener("intel.xdk.device.ready",onDeviceReady,false);
+		</script>
+		<script src="cordova.js"></script>
+		<script src="js/knockout.js"></script>	
+		<script src="iscroll/iscroll-lite.js"></script>		
+	</head>
+
+    <script type="text/javascript">
+
+    var myScroll;
+
+    function loaded () {
+	    myScroll = new IScroll('.scroll-wrapper');
+    }
+    </script>
+
+    <body onload="loaded()" style="position:absolute"
+    data-bind="css:{ flashcard_background: vm.flashCards.currentView() ==='front' }"
+    >
+
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~Page-Container start -->
+        <div id="page-container" class="background" style="position: relative; height:100%; width:100%; overflow: hidden;">
+
+
+            <!-- Body-Header start -->
+            <div id="body-header" data-bind="css:{ isHidden: vm.flashCards.currentView() ==='home' }">
+ 
+                <div class="container-fluid container-xs-height">
+                    <div class="row row-xs-height">
+
+
+                        <a href="#" class="col-xs-1 col-xs-height col-middle j-icon"
+                        data-bind="click: vm.flashCards.homeScreen, css:{ isHidden: vm.flashCards.currentView() =='home'}">                
+                            <span class="fa fa-home icon-show-as-clicked-blur no-hilight adjust-menu-padding" style="font-size:50px">
+                            </span>
+                        </a>
+                        <a href="#" class="col-xs-1 col-xs-height col-middle j-icon adjust-menu-padding" style="padding-right:1px"
+                        data-bind="click: vm.flashCards.chooseList, css:{ isHidden: vm.flashCards.currentView() =='home'}">                
+                            <span class="fa fa-file-text icon-show-as-clicked-blur no-hilight" style="font-size:40px"></span>
+                        </a>
+
+
+                        <div class="col-xs-7" ></div>
+                        <div href="#" class="col-xs-1 col-xs-height col-middle j-icon adjust-menu-padding"
+                        data-bind="css:{ isDisabled: vm.flashCards.currentView() === 'result' || vm.flashCards.hideArrows() }">                
+                            <span class="fa fa-play study_edit no-hilight" style="font-size:45px"
+                            data-bind="click: vm.flashCards.studyCards, css:{ study_edit_selected: vm.flashCards.studyMode() === 'study' }"
+                            ></span>
+                        </div>
+                        <div href="#" class="col-xs-1 col-xs-height col-middle j-icon adjust-menu-padding"
+                        data-bind="css:{ isDisabled: vm.flashCards.currentView() === 'result' || vm.flashCards.hideArrows() }">
+                            <span class="fa fa-edit study_edit no-hilight" style="font-size:50px"
+                            data-bind="click: vm.flashCards.editCards, css:{ study_edit_selected: vm.flashCards.studyMode() === 'edit' }"
+                            ></span>
+                        </div>
+                        <a href="#" class="col-xs-1 col-xs-height col-middle j-icon adjust-menu-padding"
+                        data-bind="css:{ isDisabled: vm.flashCards.currentView() === 'result' 
+                        || vm.flashCards.hideArrows() || vm.flashCards.studyMode() === 'study'
+                        || vm.flashCards.flashCardArray().length == 1},
+                        click: vm.showModals,">            
+                            <span class="fa fa-scissors icon-show-as-clicked-blur no-hilight" style="font-size:40px"></span>
+                        </a>
+                  
+                    </div>
+                </div>
+
+            </div>
+            <!-- Body-Header end -->
+
+
+			<div id="delete-card-list-context-menu" 
+			class="absolute-and-centered" style="text-align:center"
+			data-bind="css:{ isHidden: vm.flashCards.currentView() !=='choose' || vm.hideAllModals() }"
+			>			
+				<h2>
+					Delete Card List ?
+				</h2>
+				<div class="delete-button" data-bind="click:vm.hideModals">
+					No
+				</div>
+				<div class="delete-button" data-bind="click:vm.deleteCardList">
+					Yes
+				</div>
+				
+			</div>
+			<!-- delete-card-list-context-menu -->
+
+
+			<div id="delete-card-context-menu" 
+			class="absolute-and-centered" style="text-align:center"
+			data-bind="css:{ isHidden: vm.flashCards.currentView() ==='choose' || vm.hideAllModals() }"
+			>
+				<h2>
+					Delete Flash Card ?
+				</h2>
+				<div class="delete-button" data-bind="click:vm.hideModals">
+					No
+				</div>
+				<div class="delete-button" data-bind="click:vm.flashCards.deleteFlashCard">
+					Yes
+				</div>
+				
+			</div>
+			<!-- delete-card-list-context-menu -->
+			
+			<div id="modal-shadow"
+				data-bind="css:{ isHidden: vm.hideAllModals() }"
+			>
+			</div>
+         
+            <!-- Body-Content start -->
+            <div id="body-content" style="position:absolute; margin-top:50px; width:100%; min-width:500px">
+                <div id="touch-layer" data-bind="css:{ isDisabled: vm.flashCards.hideCheckers() }" 
+                style="z-index:19; position: absolute; height:130%; width:100%"></div>
+
+
+                <!--page title -->
+                <div class="container-fluid container-xs-height">
+                    <div class="row row-xs-height">
+
+                        <div class="col-xs-12 col-xs-height col-middle j-icon" style= "">
+                            <div class="" style="font-size:40px"
+                            data-bind="css:{ isHidden: vm.flashCards.currentView() !=='result' }">Results</div>
+                            <div id="select_list"
+                            data-bind="css:{ isHidden: vm.flashCards.currentView() !=='choose' }">Select List</div>
+                        </div>
+
+                    </div>
+                </div>
+                <!--page title -->                
+
+                <a class='arrow' style="position:absolute; top:35%; left:0px" href="#" >                  
+                    <span class="no-hilight glyphicon glyphicon-play
+                    mirror-icon icon-show-as-clicked-blur" style="font-size:60px" 
+                    data-bind="click:vm.flashCards.decreaseId, css:{ isHidden: !vm.flashCards.displayPreviousButton() || vm.flashCards.hideArrows(),
+                    isGreen: vm.flashCards.studyMode() === 'edit' && vm.flashCards.flashCardId() === 0}"
+                    ></span>
+                </a>
+				<!-- arrow -->
+
+                <a class='arrow' style="position:absolute;top:35%; right:0px" href="#" >                  
+                    <span class="no-hilight glyphicon
+                    icon-show-as-clicked-blur" style="font-size:60px" 
+                    data-bind="click:vm.flashCards.increaseId, css:{ isHidden: vm.flashCards.currentView() === 'result' || vm.flashCards.hideArrows(),
+                    'glyphicon-plus': vm.flashCards.showPlusButtonForNextArrow(), 'glyphicon-play': !vm.flashCards.showPlusButtonForNextArrow(), }"
+                     ></span>
+                </a>
+				<!-- arrow -->
+				
+                <div class="container body-container background">
+                    <div class="row"> 
+                                    
+                        <!-- For Home Screen -->
+                        <div 
+                        data-bind="css:{ isHidden: vm.flashCards.currentView() !=='home' }"
+                        class="col-xs-10 col-xs-offset-1 background" style="height:100%">
+
+                            <button class="col-xs-12 homeScreenButtons light" style="margin-top:5%;"
+                            data-bind="click:vm.flashCards.chooseCreate"
+                            >
+                                Create Flashcards
+                            </button>
+                            <button class="col-xs-12 homeScreenButtons light" style="margin-top:8%;"
+                            data-bind="click:vm.flashCards.chooseList"
+                            >
+                                Study Flashcards
+                            </button>
+
+                        </div>
+                        <!-- For Home Screen -->
+                                	                      
+	                    <div class="col-xs-10 col-xs-offset-1" 
+                        data-bind="css:{ isHidden: vm.flashCards.currentView() ==='home' }" 
+                        style="height:100%">
+ 
+                            <!-- For Choose List -->
+                            <div data-bind="css:{ isHidden: vm.flashCards.currentView() !=='choose' }"
+                            class="col-xs-12 sorting_buttons_family" 
+                            style="">
+                                <button 
+                                class="col-xs-5 sorting_buttons_individual"
+                                data-bind="click:function() { vm.flashCards.sortSummaryByNames(); myScroll.scrollTo(0, 0, 500, false) }"
+                                >
+                                    By Name
+                                </button>
+                                <button 
+                                class="col-xs-5 col-xs-offset-2 sorting_buttons_individual"
+                                data-bind="click: function() { vm.flashCards.sortSummaryByGrades(); myScroll.scrollTo(0, 0, 500, false) }"
+                                >
+                                    By Grade
+                                </button>
+                            </div>
+                            <!-- For Choose List -->
+
+
+                            <!-- For scrollable content in body -->
+                            <div class="scroll-wrapper" style="z-index:20" data-bind="css:{ isHidden: vm.flashCards.currentView() ==='enter_name' }">
+	                            <div class="scroller">
+
+                                    <!-- For studying flashcards -->
+                                        <!-- ko if: vm.flashCards.studyMode() === "study" -->
+                                        <div class="first-word" style="text-align:center; font-size:45px; margin-top:15%"
+                                        data-bind="css:{ isHidden: vm.flashCards.currentView() !=='front' }, text:vm.flashCards.frontText()" >Concept</div>
+
+                                        <div style="text-align:center; font-size:25px; margin-top:10%" 
+                                        data-bind="css:{ isHidden: vm.flashCards.currentView() !=='back' }, foreach: vm.flashCards.backText()" >
+                                            <div class="first-word" data-bind="text:'&#149; '+$data"></div>
+                                        </div>
+                                        <!-- /ko -->
+
+                                        <!-- ko if: vm.flashCards.studyMode() === "edit" -->
+                                                                                       
+                                            <!-- ko if: vm.flashCards.currentView() === "back" -->
+                                            <div style="margin-top:2%">
+                                                <div class="disable-touch-click col-xs-12 light" 
+                                                    style="font-size:20px; text-align:center; cursor:pointer; padding:10px"
+                                                    data-bind="click:vm.flashCards.addNewTextField">
+                                                    Add Text Field
+                                                </div>
+                                            </div>
+
+                                            <div data-bind="foreach: vm.flashCards.backText()" style="margin-top:15%;">
+                                                <div class="input-group input-group-lg" style="margin-bottom:10px">
+                                                    <span class="disable-touch-click input-group-addon glyphicon glyphicon-remove" 
+                                                    data-bind="click: function() { vm.flashCards.removeThisTextField($index()) }"
+                                                    style="color:red; font-size:30px; padding:4px !important; cursor:pointer"></span> 
+                                                    <input class="form-control edit_back" style="height:70px; font-size:25px; padding:0px" 
+                                                    type="text" data-bind="value:$data" placeholder="New Text Field Here">
+                                                </div>
+                                            </div>
+                                            <!-- /ko -->
+                                            <!-- ko if: vm.flashCards.currentView() === "front" -->
+                                            <div style="margin-top:15%">
+                                                    <input id="edit_front" class="form-control" style="height:70px; font-size:45px; padding:0px 0px 0px 5px"
+                                                    type="text" data-bind="value:vm.flashCards.frontText()" placeholder="New Topic Here">
+                                            </div>
+                                            <!-- /ko -->
+                                        <!-- /ko -->
+
+	                                <!-- For studying flashcards -->
+
+                                    <!-- For results -->
+                                    <span  data-bind="css:{ isHidden: vm.flashCards.currentView() !=='result' }">
+                                        <div style="text-align:center; font-size:45px">Percent Correct:</div>
+                                        <div data-bind="text: vm.flashCards.percentageCorrect() +'%'" style="text-align:center; font-size:55px; ">
+                                        </div>
+                                    </span>
+                                    <!-- For results -->
+
+                                    <!-- For Choose List -->
+                                    <span  data-bind="foreach: vm.flashCards.summary(), css:{ isHidden: vm.flashCards.currentView() !=='choose' }">
+
+                                        <div 
+                                        style="position:relative"
+                                        class="first-word button-show-as-clicked dark outer-choose-button" 
+                                        data-bind="css:{ light: !vm.flashCards.isOdd($index())}" >
+                                        
+											<span 
+                                            data-bind="click: function() { removeSpecificCardList($index(), $data.id); }," 
+											class="glyphicon glyphicon-remove remove-card-list"></span>                                         
+                                        
+                                            <div 
+                                            class= "inner-choose-button"
+                                            data-bind="text: $data.name, css:{leftShift: vm.flashCards.showListGrade()}"
+                                            >
+                                            </div>
+                                            <div 
+                                            class="chooseListGrade" 
+                                            data-bind="css:{ isHidden: !vm.flashCards.showListGrade() }, text: $data.grade + '%'"
+                                            >
+                                                80%
+                                            </div>
+
+                                            <button
+                                            class="deletable"
+                                            style="position:absolute; height:100%; top:0px; left:0px"
+                                            data-bind="click: function(data, event) { goToSpecificCardList(data, $index(), event); },
+                                            attr: { 'data-list_summary_id': $index(), 'data-local_storage_id' : $data.id }" 
+                                            >
+                                            </button>
+                                        </div>
+
+                                    </span>
+                                    <!-- For Choose List -->
+
+
+                                    <div style="height:200px"></div>
+	                            </div>
+								<!-- scroller -->
+                            </div>
+                            <!-- For scrollable content in body -->
+
+                            <!-- For non-scrollable content in body -->
+                            <div id="non_scrollable_y_adjust">
+
+                                <!-- For Enter Name -->
+                                <div data-bind="css:{ isHidden: vm.flashCards.currentView() !=='enter_name' }">
+
+                                    <input id="enter_name_input" class="col-xs-12" style="text-transform:capitalize"
+                                    type="text" placeholder="Enter New Card List Name"
+                                    data-bind="value:vm.flashCards.cardListName()">
+
+                                    <button id="enter_name_button" data-bind="click:vm.flashCards.workOnCardList">
+                                        Enter
+                                    </button>
+                                </div>
+                                <!-- For Enter Name -->
+                            </div>
+                            <!-- For non-scrollable content in body -->
+	                    </div> 
+						<!-- col-xs-10 col-xs-offset-1 -->
+
+                    </div> 
+                </div>
+				<!-- container body-container -->
+
+            </div>
+	        <!-- Body-Content end -->
+            
+
+
+
+		    <!-- Footer start -->
+	        <div id="body-footer" class="bottom" >
+
+                <div class="container container-xs-height">
+                    <div class="row row-xs-height" style="line-height:.5">
+
+                        <!-- height place holder -->
+                        <a href="#" class="col-xs-0 col-xs-height col-middle"> 
+                            <span  class="glyphicon glyphicon-remove isDisabled" style="font-size:40px"></span>                    
+                        </a>
+                        <!-- height place holder -->
+
+                        <!-- ko with: vm.flashCards.flashCardArray()[vm.flashCards.flashCardId()] -->
+                            <a href="#" class="col-xs-4 col-xs-height col-middle j-icon button-show-as-clicked"
+                            data-bind="css:{ wrongCorrect: $data.isCorrect()===1, isDisabled: vm.flashCards.hideCheckers() || vm.flashCards.studyMode()=='edit'}, 
+                            click: vm.flashCards.correctButtonPushed">
+                                <span  class="glyphicon glyphicon-ok button-icon-center" 
+                                style="font-size:40px; color:rgb(66, 174, 66)"></span>
+                            </a>
+
+                            <a href="#" class="col-xs-4 col-xs-height col-middle j-icon button-show-as-clicked" 
+                            data-bind="css:{ wrongCorrect: $data.isCorrect()===-1, isDisabled: vm.flashCards.hideCheckers() || vm.flashCards.studyMode()=='edit'},
+                            click: vm.flashCards.incorrectButtonPushed">
+                                <span  class="glyphicon glyphicon-remove"
+                                style="font-size:40px; color:red"
+                                ></span>
+                            </a>
+                        <!-- /ko -->
+
+                        <a href="#" class="col-xs-4 col-xs-height col-middle j-icon button-show-as-clicked"
+                        data-bind="click: vm.flashCards.exitApp"  >           
+                            <div style="height:4px"></div>     
+                            <span class="end-text" style="font-size:25px;">End</span>
+                        </a>
+
+                    </div>
+                </div>
+
+	        </div>
+		    <!-- Footer end -->
+
+        </div>
+        <!-- page-container -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~Page-Container end -->
+
+		<script src="js/jquery.min.js"></script>
+		<script src="js/custom-js.js"></script>
+		<script src="data.js"></script>				
+        <script src="js/app.js"></script>
+
+    </body>
+</html>
+
+
+
+

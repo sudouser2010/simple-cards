@@ -1,0 +1,7 @@
+*~
+*.pyc
+/dev
+*.xdk
+*.xdke
+*.xml
+*_bak
